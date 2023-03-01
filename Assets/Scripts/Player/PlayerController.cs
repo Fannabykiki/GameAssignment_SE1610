@@ -5,13 +5,22 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float speed;
     private Rigidbody2D rb;
+    private Animator ani;
+
+
+    private int playerHealth = 100;
+    public float speed;
+    
+    //move
     private float left_right;
     private float up_down;
     private bool isfacingRight = true;
-    private Animator ani;
-
+    //attack
+    public float attackRange;
+    public int attackDamage;
+    public Transform attackPoint;
+    public LayerMask enemyLayers;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,14 +32,22 @@ public class PlayerController : MonoBehaviour
     void Update()
 
     {
+        //move
         left_right = Input.GetAxis("Horizontal");
         up_down = Input.GetAxis("Vertical");
         rb.velocity = new Vector2(left_right * speed, rb.velocity.y);
         rb.velocity = new Vector2(rb.velocity.x, up_down * speed);
-        flip();
 
+        //animation
+        flip();
+       
         ani.SetFloat("move", Mathf.Abs(left_right));
-        ani.SetFloat("move", Mathf.Abs(up_down));
+
+        //attack
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //Attack();
+        }
 
     }
 
@@ -48,4 +65,13 @@ public class PlayerController : MonoBehaviour
     {
 
     }
+    //void Attack()
+    //{
+    //    Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+    //    foreach (Collider2D enemy in hitEnemies)
+    //    {
+    //        enemy.GetComponent<EnemyController>().TakeDamage(attackDamage);
+    //    }
+    //}
 }
