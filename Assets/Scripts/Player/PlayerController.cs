@@ -40,14 +40,21 @@ public class PlayerController : MonoBehaviour
 
         //animation
         flip();
-       
         ani.SetFloat("move", Mathf.Abs(left_right));
+        AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);
+        if (stateInfo.IsName("Attack") && stateInfo.normalizedTime >= 1f)
+        {
+
+            ani.SetTrigger("Idle");
+        }
 
         //attack
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            ani.SetTrigger("attack");
             //Attack();
         }
+        
 
     }
 
