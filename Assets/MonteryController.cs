@@ -31,19 +31,23 @@ public class MonteryController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Tower"))
         {
-            rb.velocity = Vector2.zero;
-            rb.AddForce((transform.position - collision.transform.position) * 500f);
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            rb.velocity = new Vector2(-5f, 5f); // Bật quái vật ra khỏi trụ thành
+        }
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
+        {
+            PlayerController player = other.gameObject.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                _ = player.attackDamage; // Trừ máu của nhân vật
+                Destroy(gameObject); // Biến mất khỏi màn hình
+            }
         }
     }
 
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-    }
 
     private void Die()
     {

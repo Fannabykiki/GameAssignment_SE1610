@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         
 
     }
-
+   
     void flip()
     {
         if(isfacingRight && left_right <0 || !isfacingRight && left_right > 0)
