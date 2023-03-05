@@ -31,9 +31,9 @@ public class MonterxController : MonoBehaviour
         
             if (collision.gameObject.CompareTag("Tower"))
             {
-                rb.velocity = Vector2.zero;
-                rb.AddForce((transform.position - collision.transform.position) * 500f);
-            }
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            rb.velocity = new Vector2(-5f, 5f); // Bật quái vật ra khỏi trụ thành
+        }
         
     }
 
