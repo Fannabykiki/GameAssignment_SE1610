@@ -8,7 +8,7 @@ public class MonterxController : MonoBehaviour
     public Transform target;
     public int Health = 100;
     private int currentHealth;
-
+    public int damage = 0;
     private Rigidbody2D rb;
 
     void Start()
@@ -28,10 +28,19 @@ public class MonterxController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Tower"))
-        {
-            rb.velocity = Vector2.zero;
-            rb.AddForce((transform.position - collision.transform.position) * 500f);
-        }
+        
+            if (collision.gameObject.CompareTag("Tower"))
+            {
+                rb.velocity = Vector2.zero;
+                rb.AddForce((transform.position - collision.transform.position) * 500f);
+            }
+        
+    }
+
+    private void Die()
+    {
+        // Khi quái vật chết, xóa nó khỏi scene
+        Destroy(gameObject);
     }
 }
+
