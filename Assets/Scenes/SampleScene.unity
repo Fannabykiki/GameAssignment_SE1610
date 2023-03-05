@@ -35653,6 +35653,7 @@ GameObject:
   - component: {fileID: 931906012}
   - component: {fileID: 931906011}
   - component: {fileID: 931906010}
+  - component: {fileID: 931906015}
   m_Layer: 0
   m_Name: Montery
   m_TagString: Untagged
@@ -35794,6 +35795,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &931906015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931906009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ee45f720a872a4584b2228ed9d203e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 2
+  target: {fileID: 1390410586}
+  Health: 300
+  damage: 10
 --- !u!1 &1064735874
 GameObject:
   m_ObjectHideFlags: 0
@@ -72872,6 +72889,7 @@ GameObject:
   - component: {fileID: 1157860919}
   - component: {fileID: 1157860923}
   - component: {fileID: 1157860922}
+  - component: {fileID: 1157860924}
   m_Layer: 0
   m_Name: Monterx
   m_TagString: Untagged
@@ -73013,6 +73031,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3825221, y: 0.13144113}
   m_EdgeRadius: 0
+--- !u!114 &1157860924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157860918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0672a537eae93234db21268849dead83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 1
+  target: {fileID: 1390410586}
+  Health: 100
 --- !u!1 &1160726242
 GameObject:
   m_ObjectHideFlags: 0
@@ -73291,6 +73324,7 @@ GameObject:
   - component: {fileID: 1205803712}
   - component: {fileID: 1205803711}
   - component: {fileID: 1205803710}
+  - component: {fileID: 1205803715}
   m_Layer: 0
   m_Name: Monterz
   m_TagString: Untagged
@@ -73432,6 +73466,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1205803715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af8946ffab8e3e04ab27602fc5a629d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 2
+  target: {fileID: 1390410586}
+  Health: 200
+  damage: 15
 --- !u!1 &1390410584
 GameObject:
   m_ObjectHideFlags: 0
