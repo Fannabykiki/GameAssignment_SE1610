@@ -12,7 +12,10 @@ public class MonterzController : MonoBehaviour
     private int currentHealth;
     private Rigidbody2D rb;
     public float knockbackForce;
+    public float knockBackTime = 5f;
     private Vector3 initialPosition;
+    private PlayerController playerController;
+    private MonterzController monterzController;
 
     void Start()
     {
@@ -32,21 +35,35 @@ public class MonterzController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Tower"))
+        if (monterzController != null)
         {
-            Vector2 direction = (transform.position - collision.transform.position).normalized;
-            knockback(direction);
+            damage = (int)monterzController.damage;
+        }
+        if (collision.transform.tag == "Tower")
+        {
+            Rigidbody2D rb = transform.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                //rb.isKinematic = false;
+                Vector2 dir = -(collision.transform.position - transform.position);
+                dir = dir.normalized * 10;
+                rb.AddForce(dir, ForceMode2D.Impulse);
+                StartCoroutine(knockBack(rb));
+            }
+
         }
 
     }
-    void knockback(Vector2 direction)
+
+    private IEnumerator knockBack(Rigidbody2D rb)
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.zero;
-        rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+        if (rb != null)
+        {
+            yield return new WaitForSeconds(knockBackTime);
+            rb.velocity = Vector2.zero;
+            //rb.isKinematic = true;
+        }
     }
-
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
@@ -59,7 +76,6 @@ public class MonterzController : MonoBehaviour
             }
         }
     }
-
 
     private void Die()
     {

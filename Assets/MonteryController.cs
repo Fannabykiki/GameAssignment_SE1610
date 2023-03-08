@@ -12,7 +12,10 @@ public class MonteryController : MonoBehaviour
 
     private Rigidbody2D rb;
     public float knockbackForce;
+    public float knockBackTime = 5f;
     private Vector3 initialPosition;
+    private PlayerController playerController;
+    private MonteryController monteryController;
     void Start()
     {
         currentHealth = Health;
@@ -29,38 +32,54 @@ public class MonteryController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Nếu quái vật va chạm với trụ thành, đẩy nó ra khỏi trụ thành
-        if (collision.gameObject.CompareTag("Tower"))
+    
+        void OnCollisionEnter2D(Collision2D collision)
         {
-            Vector2 direction = (transform.position - collision.transform.position).normalized;
-            knockback(direction);
-        }
-    }
-    void knockback(Vector2 direction)
-    {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.zero;
-        rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
-    }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
-        {
-            PlayerController player = other.gameObject.GetComponent<PlayerController>();
-            if (player != null)
+            if (monteryController != null)
             {
-                _ = player.attackDamage; // Trừ máu của nhân vật
-                Destroy(gameObject); // Biến mất khỏi màn hình
+                damage = (int)monteryController.damage;
+            }
+            if (collision.transform.tag == "Tower")
+            {
+                Rigidbody2D rb = transform.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    //rb.isKinematic = false;
+                    Vector2 dir = -(collision.transform.position - transform.position);
+                    dir = dir.normalized * 10;
+                    rb.AddForce(dir, ForceMode2D.Impulse);
+                    StartCoroutine(knockBack(rb));
+                }
+
+            }
+
+        }
+
+        private IEnumerator knockBack(Rigidbody2D rb)
+        {
+            if (rb != null)
+            {
+                yield return new WaitForSeconds(knockBackTime);
+                rb.velocity = Vector2.zero;
+                //rb.isKinematic = true;
             }
         }
-    }
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
+            {
+                PlayerController player = other.gameObject.GetComponent<PlayerController>();
+                if (player != null)
+                {
+                    _ = player.attackDamage; // Trừ máu của nhân vật
+                    Destroy(gameObject); // Biến mất khỏi màn hình
+                }
+            }
+        }
 
-
-    private void Die()
-    {
-        // Khi quái vật chết, xóa nó khỏi scene
-        Destroy(gameObject);
+        private void Die()
+        {
+            // Khi quái vật chết, xóa nó khỏi scene
+            Destroy(gameObject);
+        }
     }
-}

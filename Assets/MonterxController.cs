@@ -12,7 +12,11 @@ public class MonterxController : MonoBehaviour
     public int damage = 0;
     private Rigidbody2D rb;
     public float knockbackForce;
+    public float knockBackTime = 5f;
     private Vector3 initialPosition;
+    private PlayerController playerController;
+    private MonterxController monterxController;
+   
     void Start()
     {
         currentHealth = Health;
@@ -32,19 +36,36 @@ public class MonterxController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Tower"))
+        if(monterxController!= null)
         {
-            Vector2 direction = (transform.position - collision.transform.position).normalized;
-            knockback(direction);
+            damage = (int)monterxController.damage;
         }
-    }
-    void knockback(Vector2 direction)
+        if(collision.transform.tag == "Tower")
+        {
+            Rigidbody2D rb = transform.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                //rb.isKinematic = false;
+                Vector2 dir = -(collision.transform.position - transform.position);
+                dir = dir.normalized * 10;
+                rb.AddForce(dir, ForceMode2D.Impulse);
+                StartCoroutine(knockBack(rb));
+            }
+           
+        }
+        
+    }    
+    
+private IEnumerator knockBack(Rigidbody2D rb)
+{
+    if (rb != null)
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        yield return new WaitForSeconds(knockBackTime);
         rb.velocity = Vector2.zero;
-        rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+        //rb.isKinematic = true;
     }
-    void OnTriggerEnter2D(Collider2D other)
+}
+void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
         {
