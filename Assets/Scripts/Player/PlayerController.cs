@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
 
     private int playerHealth = 100;
-    public float speed;
+    public float speed = 5f;
     
     //move
     private float left_right;
@@ -21,6 +23,11 @@ public class PlayerController : MonoBehaviour
     public int attackDamage;
     public Transform attackPoint;
     public LayerMask enemyLayers;
+    //speedUp
+    public float speedBoost = 2f;
+    private float speedUpTime;
+    public float SpeedUpTime;
+    bool speedOnce = false;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -54,7 +61,24 @@ public class PlayerController : MonoBehaviour
             ani.SetTrigger("attack");
             //Attack();
         }
-        
+
+        //SpeedUp
+        if(Input.GetKeyDown(KeyCode.Z) && speedUpTime <= 0)
+        {
+            speed += speedBoost;
+            speedUpTime = SpeedUpTime;
+            speedOnce = true;
+
+        }
+        if(speedUpTime<= 0 && speedOnce == true)
+        {
+            speed -= speedBoost;
+            speedOnce = false;
+        }
+        else
+        {
+            speedUpTime -= Time.deltaTime;
+        }
 
     }
 
