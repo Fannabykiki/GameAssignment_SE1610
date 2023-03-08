@@ -11,7 +11,8 @@ public class MonteryController : MonoBehaviour
     private int currentHealth;
 
     private Rigidbody2D rb;
-
+    public float knockbackForce;
+    private Vector3 initialPosition;
     void Start()
     {
         currentHealth = Health;
@@ -20,6 +21,7 @@ public class MonteryController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Di chuyển quái vật về trụ thành
         if (target != null)
         {
             Vector2 direction = (target.position - transform.position).normalized;
@@ -29,11 +31,18 @@ public class MonteryController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        // Nếu quái vật va chạm với trụ thành, đẩy nó ra khỏi trụ thành
         if (collision.gameObject.CompareTag("Tower"))
         {
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            rb.velocity = new Vector2(-5f, 5f); // Bật quái vật ra khỏi trụ thành
+            Vector2 direction = (transform.position - collision.transform.position).normalized;
+            knockback(direction);
         }
+    }
+    void knockback(Vector2 direction)
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.velocity = Vector2.zero;
+        rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
     }
     void OnTriggerEnter2D(Collider2D other)
     {

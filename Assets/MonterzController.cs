@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +11,14 @@ public class MonterzController : MonoBehaviour
     public int damage = 15;
     private int currentHealth;
     private Rigidbody2D rb;
+    public float knockbackForce;
+    private Vector3 initialPosition;
 
     void Start()
     {
         currentHealth = Health;
         rb = GetComponent<Rigidbody2D>();
+        
     }
 
     void FixedUpdate()
@@ -26,14 +30,23 @@ public class MonterzController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.gameObject.CompareTag("Tower")) // Nếu va chạm với "Base"
+        if (collision.gameObject.CompareTag("Tower"))
         {
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            rb.velocity = new Vector2(-5f, 5f); // Bật quái vật ra khỏi trụ thành
+            Vector2 direction = (transform.position - collision.transform.position).normalized;
+            knockback(direction);
         }
+
     }
+    void knockback(Vector2 direction)
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.velocity = Vector2.zero;
+        rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+    }
+
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
