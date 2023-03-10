@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +11,17 @@ public class MonterzController : MonoBehaviour
     public int damage = 15;
     private int currentHealth;
     private Rigidbody2D rb;
+    public float knockbackForce;
+    public float knockBackTime = 5f;
+    private Vector3 initialPosition;
+    private PlayerController playerController;
+    private MonterzController monterzController;
 
     void Start()
     {
         currentHealth = Health;
         rb = GetComponent<Rigidbody2D>();
+        
     }
 
     void FixedUpdate()
@@ -28,19 +35,45 @@ public class MonterzController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Tower"))
+        if (monterzController != null)
         {
-            rb.velocity = Vector2.zero;
-            rb.AddForce((transform.position - collision.transform.position) * 500f);
+            damage = (int)monterzController.damage;
         }
+        if (collision.transform.tag == "Tower")
+        {
+            Rigidbody2D rb = transform.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                //rb.isKinematic = false;
+                Vector2 dir = -(collision.transform.position - transform.position);
+                dir = dir.normalized * 10;
+                rb.AddForce(dir, ForceMode2D.Impulse);
+                StartCoroutine(knockBack(rb));
+            }
+
+        }
+
     }
 
-    public void TakeDamage(int damage)
+    private IEnumerator knockBack(Rigidbody2D rb)
     {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
+        if (rb != null)
         {
-            Die();
+            yield return new WaitForSeconds(knockBackTime);
+            rb.velocity = Vector2.zero;
+            //rb.isKinematic = true;
+        }
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
+        {
+            PlayerController player = other.gameObject.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                _ = player.attackDamage; // Trừ máu của nhân vật
+                Destroy(gameObject); // Biến mất khỏi màn hình
+            }
         }
     }
 
