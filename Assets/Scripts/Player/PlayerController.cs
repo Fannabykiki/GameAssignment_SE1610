@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -25,14 +26,47 @@ public class PlayerController : MonoBehaviour
     public LayerMask enemyLayers;
     //speedUp
     public float speedBoost = 2f;
-    private float speedUpTime;
-    public float SpeedUpTime;
+    private float speedUpTime ;
+    public float SpeedUpTime = 1f;
     bool speedOnce = false;
+    ////skill1
+    public GameObject skillPrefab;
+    public Button button;
+    public float showDuration = 5f;
+    public float cooldownDuration = 20f;
+
+    private bool isCooldown = false;
+
+
+    //Skill1
+    public void ShowSkill()
+    {
+        if (!isCooldown)
+        {
+            skillPrefab.SetActive(true);
+            Invoke("HideSkill", showDuration);
+            isCooldown = true;
+            button.interactable = false;
+            Invoke("EndCooldown", cooldownDuration);
+        }
+    }
+
+    private void HideSkill()
+    {
+        skillPrefab.SetActive(false);
+    }
+
+    private void EndCooldown()
+    {
+        isCooldown = false;
+        button.interactable = true;
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
-        
+        skillPrefab.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -79,9 +113,14 @@ public class PlayerController : MonoBehaviour
         {
             speedUpTime -= Time.deltaTime;
         }
+        //Skill
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            ShowSkill();
+        }
+     }
+    
 
-    }
-   
     void flip()
     {
         if(isfacingRight && left_right <0 || !isfacingRight && left_right > 0)
