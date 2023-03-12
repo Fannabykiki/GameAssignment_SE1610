@@ -16,7 +16,7 @@ public class MonterxController : MonoBehaviour
     private Vector3 initialPosition;
     private PlayerController playerController;
     private MonterxController monterxController;
-
+   
     void Start()
     {
         currentHealth = Health;
@@ -25,7 +25,7 @@ public class MonterxController : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        
         // Di chuyển quái vật về trụ thành
         if (target != null)
         {
@@ -35,7 +35,7 @@ public class MonterxController : MonoBehaviour
         if(currentHealth <= 0)
         {
             Die();
-        }
+    }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -55,21 +55,21 @@ public class MonterxController : MonoBehaviour
                 rb.AddForce(dir, ForceMode2D.Impulse);
                 StartCoroutine(knockBack(rb));
             }
-
+           
         }
-
-    }
-
-    private IEnumerator knockBack(Rigidbody2D rb)
+        
+    }    
+    
+private IEnumerator knockBack(Rigidbody2D rb)
+{
+    if (rb != null)
     {
-        if (rb != null)
-        {
-            yield return new WaitForSeconds(knockBackTime);
-            rb.velocity = Vector2.zero;
-            //rb.isKinematic = true;
-        }
+        yield return new WaitForSeconds(knockBackTime);
+        rb.velocity = Vector2.zero;
+        //rb.isKinematic = true;
     }
-    void OnTriggerEnter2D(Collider2D other)
+}
+void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
         {
@@ -81,7 +81,7 @@ public class MonterxController : MonoBehaviour
             }
         }
     }
-
+   
     private void Die()
     {
         // Khi quái vật chết, xóa nó khỏi scene

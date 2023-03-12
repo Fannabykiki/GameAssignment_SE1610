@@ -34,7 +34,7 @@ public class MonterzController : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
-        }
+    }
     }
 
     void OnCollisionEnter2D(Collision2D collision)

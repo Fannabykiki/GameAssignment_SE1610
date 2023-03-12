@@ -33,7 +33,7 @@ public class MonteryController : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
-        }
+    }
     }
 
     
@@ -90,4 +90,4 @@ public class MonteryController : MonoBehaviour
     {
         currentHealth -= damage;
     }
-}
+    }
