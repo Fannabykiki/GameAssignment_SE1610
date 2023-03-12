@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class EnnemySpawner : MonoBehaviour
 {
 
     public List<GameObject> enemyPrefabs;
-    public float spawnDelay = 0.5f;
+    public float spawnDelay = 1f;
     public int waves = 10;
     public int enemiesPerWave = 3;
     public float waveDelay = 3f;
     public float decreaseTime = 5;
     private int currentWave = 0;
     private int currentEnemies = 0;
+    float counter = 0;
 
     void Start()
     {
@@ -43,8 +45,10 @@ public class EnnemySpawner : MonoBehaviour
     }
     void Update()
     {
-        if ((int)Time.deltaTime % (int)decreaseTime == 0)
+        counter += Time.deltaTime;
+        if (counter >= 5 && (int)counter % 5 == 0)
         {
+            counter = 0;
             enemiesPerWave += 1;
         }
     }
