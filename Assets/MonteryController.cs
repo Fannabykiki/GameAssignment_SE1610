@@ -30,6 +30,10 @@ public class MonteryController : MonoBehaviour
             Vector2 direction = (target.position - transform.position).normalized;
             rb.velocity = direction * Speed;
         }
+        if (currentHealth <= 0)
+        {
+            Die();
+    }
     }
 
     
@@ -82,4 +86,8 @@ public class MonteryController : MonoBehaviour
             // Khi quái vật chết, xóa nó khỏi scene
             Destroy(gameObject);
         }
+    void OnHit(int damage)
+    {
+        currentHealth -= damage;
+    }
     }
