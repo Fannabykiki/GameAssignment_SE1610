@@ -25,7 +25,7 @@ public class SwordHitbox : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D col)
     {
-        col.collider.SendMessage("OnHit", swordDamage);
+        col.gameObject.SendMessage("OnHit", swordDamage);
     }
     
     
