@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public Transform attackPoint;
     public LayerMask enemyLayers;
     //speedUp
-    public float speedBoost = 2f;
+    public float speedBoost = 10f;
     private float speedUpTime ;
     public float SpeedUpTime = 1f;
     bool speedOnce = false;
@@ -36,36 +36,62 @@ public class PlayerController : MonoBehaviour
     public float cooldownDuration = 20f;
 
     private bool isCooldown = false;
+    //Skill2
+    public GameObject skillPrefab2;
+    public Button button2;
+    public float showDuration2 = 5f;
+    public float cooldownDuration2 = 10f;
 
-
+    private bool isCooldown2 = false;
     //Skill1
-    public void ShowSkill()
+    public void ShowSkill1()
     {
         if (!isCooldown)
         {
             skillPrefab.SetActive(true);
-            Invoke("HideSkill", showDuration);
+            Invoke("HideSkill1", showDuration);
             isCooldown = true;
             button.interactable = false;
             Invoke("EndCooldown", cooldownDuration);
         }
     }
+    //Skill2
+    public void ShowSkill2()
+    {
+        if (!isCooldown2)
+        {
+            skillPrefab2.SetActive(true);
+            Invoke("HideSkill2", showDuration2);
+            isCooldown2 = true;
+            button2.interactable = false;
+            Invoke("EndCooldown2", cooldownDuration2);
+        }
+    }
 
-    private void HideSkill()
+    private void HideSkill1()
     {
         skillPrefab.SetActive(false);
     }
-
+    private void HideSkill2()
+    {
+        skillPrefab2.SetActive(false);
+    }
     private void EndCooldown()
     {
         isCooldown = false;
         button.interactable = true;
+    }
+    private void EndCooldown2()
+    {
+        isCooldown2 = false;
+        button2.interactable = true;
     }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
         skillPrefab.SetActive(false);
+        skillPrefab2.SetActive(false);
 
     }
 
@@ -113,12 +139,21 @@ public class PlayerController : MonoBehaviour
         {
             speedUpTime -= Time.deltaTime;
         }
-        //Skill
+        //Skill1
         if (Input.GetKeyDown(KeyCode.X))
         {
-            ShowSkill();
+            ShowSkill1();
         }
-     }
+        //Skill2
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GameObject skill = Instantiate(skillPrefab2);
+            skill.transform.SetParent(transform);
+            skill.transform.localPosition = Vector3.zero;
+            skill.transform.rotation = Quaternion.Euler(0, 0, transform.eulerAngles.z);
+            ShowSkill2();
+        }
+    }
     
 
     void flip()

@@ -35752,7 +35752,6 @@ GameObject:
   - component: {fileID: 391460392}
   - component: {fileID: 391460391}
   - component: {fileID: 391460390}
-  - component: {fileID: 391460393}
   m_Layer: 5
   m_Name: Skill3
   m_TagString: Untagged
@@ -35863,18 +35862,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 391460388}
   m_CullTransparentMesh: 1
---- !u!114 &391460393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 391460388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0ef67c9e0c2a9e4fbc101c37ded0bfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &461957208
 GameObject:
   m_ObjectHideFlags: 0
@@ -73419,7 +73406,11 @@ MonoBehaviour:
   skillPrefab: {fileID: 1651074754}
   button: {fileID: 1689629174}
   showDuration: 5
-  cooldownDuration: 20
+  cooldownDuration: 10
+  skillPrefab2: {fileID: 100000, guid: 90ea7a4af00afcf4d841e4a6d8fa319e, type: 3}
+  button2: {fileID: 62721778}
+  showDuration2: 5
+  cooldownDuration2: 10
 --- !u!61 &1160726244
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -73550,7 +73541,8 @@ Transform:
   m_LocalPosition: {x: 8.8935, y: 4.4854, z: 0}
   m_LocalScale: {x: 3.5803936, y: 3.6175716, z: 3.319482}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1651074755}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -73688,68 +73680,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe50cbb44b53f3469cd35ffe1eff2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 569022353}
-  - {fileID: 943551309}
-  - {fileID: 167380513}
-  spawnDelay: 3
-  waves: 10
-  enemiesPerWave: 3
-  waveDelay: 3
-  decreaseTime: 5
---- !u!1 &1289207435
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1289207436}
-  - component: {fileID: 1289207437}
-  m_Layer: 0
-  m_Name: SkillObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1289207436
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1289207435}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.264601, y: -0.8574564, z: -0.0052895453}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1651074755}
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1289207437
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1289207435}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d81afd3e84a48f34ea6ecf3f0d38b90b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  Speed: 1
+  target: {fileID: 1390410586}
+  Health: 200
+  damage: 15
+  knockbackForce: 0
+  knockBackTime: 5
 --- !u!1 &1390410584
 GameObject:
   m_ObjectHideFlags: 0
@@ -74008,7 +73944,6 @@ GameObject:
   - component: {fileID: 1689629176}
   - component: {fileID: 1689629175}
   - component: {fileID: 1689629174}
-  - component: {fileID: 1689629177}
   m_Layer: 5
   m_Name: Skill1
   m_TagString: Untagged
@@ -74119,22 +74054,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689629172}
   m_CullTransparentMesh: 1
---- !u!114 &1689629177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1689629172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b04f55082570e7e4aa250e9697528d1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillPrefab: {fileID: 1651074754}
-  button: {fileID: 1689629174}
-  showDuration: 5
-  cooldownDuration: 20
 --- !u!1 &1756941094
 GameObject:
   m_ObjectHideFlags: 0
@@ -84215,7 +84134,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1289207436}
+    m_TransformParent: {fileID: 1160726248}
     m_Modifications:
     - target: {fileID: 100000, guid: c4ad8e246bd84f54bbd36b24f9988314, type: 3}
       propertyPath: m_Name
@@ -84227,27 +84146,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c4ad8e246bd84f54bbd36b24f9988314, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.27929893
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c4ad8e246bd84f54bbd36b24f9988314, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.27642855
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c4ad8e246bd84f54bbd36b24f9988314, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.3012518
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c4ad8e246bd84f54bbd36b24f9988314, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.5858016
+      value: -1.1771616
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c4ad8e246bd84f54bbd36b24f9988314, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.6045437
+      value: -0.20409077
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c4ad8e246bd84f54bbd36b24f9988314, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.06689406
+      value: -0.021745441
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c4ad8e246bd84f54bbd36b24f9988314, type: 3}
       propertyPath: m_LocalRotation.w
