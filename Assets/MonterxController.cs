@@ -32,15 +32,19 @@ public class MonterxController : MonoBehaviour
             Vector2 direction = (target.position - transform.position).normalized;
             rb.velocity = direction * Speed;
         }
+        if(currentHealth <= 0)
+        {
+            Die();
+    }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(monterxController!= null)
+        if (monterxController != null)
         {
             damage = (int)monterxController.damage;
         }
-        if(collision.transform.tag == "Tower")
+        if (collision.transform.tag == "Tower")
         {
             Rigidbody2D rb = transform.GetComponent<Rigidbody2D>();
             if (rb != null)
@@ -82,6 +86,10 @@ void OnTriggerEnter2D(Collider2D other)
     {
         // Khi quái vật chết, xóa nó khỏi scene
         Destroy(gameObject);
+    }
+    void OnHit(int damage)
+    {
+        currentHealth -= damage;
     }
 }
 
