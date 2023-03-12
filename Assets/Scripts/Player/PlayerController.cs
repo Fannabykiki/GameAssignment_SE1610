@@ -15,15 +15,11 @@ public class PlayerController : MonoBehaviour
     public Transform characterTransform;
     public Transform swordTransform;
     private int playerHealth = 100;
-<<<<<<< Updated upstream
-    public float speed;
-    
-    //move
-=======
+
     public float speed = 5f;
-    GameObject player;
+    private GameObject player;
     //moveW
->>>>>>> Stashed changes
+
     private float left_right;
     private float up_down;
     private bool isfacingRight = true;
@@ -100,15 +96,13 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
-<<<<<<< Updated upstream
-        
-=======
+
         skillPrefab.SetActive(false);
         skillPrefab2.SetActive(false);
         swordCollider = swordHitbox.GetComponent<Collider2D>();
         characterTransform = player.transform;
         swordTransform = transform;
->>>>>>> Stashed changes
+
     }
 
     // Update is called once per frame
