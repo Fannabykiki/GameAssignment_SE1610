@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Skill2 : MonoBehaviour
 {
@@ -13,6 +14,13 @@ public class Skill2 : MonoBehaviour
 
     void Run()
     {
-        animator.SetBool("isRunning", true);
+        animator.SetBool("Charged6", true);
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Run();
+        }
     }
 }
