@@ -35500,6 +35500,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1856182906440108528, guid: a70b7ceb3db20614f9ae41854bf23111, type: 3}
   m_PrefabInstance: {fileID: 1856182906817873961}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &167380520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167380513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22017ae5f682fc4ba2dc5eee207d148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 2838288906660507799, guid: 34ca304f60628be4d9a93b364a7462e6, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 9faa393e516860949bcb8f4f58057d7b, type: 2}
+  - {fileID: 11400000, guid: b577980bd48f7d44b8be269341d848e6, type: 2}
 --- !u!1 &195552090
 GameObject:
   m_ObjectHideFlags: 0
@@ -36155,6 +36171,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8870701028604761559, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
   m_PrefabInstance: {fileID: 8870701029628206049}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &569022360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569022353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22017ae5f682fc4ba2dc5eee207d148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 2838288906660507799, guid: 34ca304f60628be4d9a93b364a7462e6, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 9faa393e516860949bcb8f4f58057d7b, type: 2}
+  - {fileID: 11400000, guid: b577980bd48f7d44b8be269341d848e6, type: 2}
 --- !u!1 &942608864
 GameObject:
   m_ObjectHideFlags: 0
@@ -36295,6 +36327,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3070575367932533861, guid: b94a3c36e04b2eb4aa751dc6947b6f1c, type: 3}
   m_PrefabInstance: {fileID: 3070575366804457176}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &943551316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943551309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22017ae5f682fc4ba2dc5eee207d148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 2838288906660507799, guid: 34ca304f60628be4d9a93b364a7462e6, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 9faa393e516860949bcb8f4f58057d7b, type: 2}
+  - {fileID: 11400000, guid: b577980bd48f7d44b8be269341d848e6, type: 2}
 --- !u!1 &1064735874
 GameObject:
   m_ObjectHideFlags: 0
@@ -73671,7 +73719,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1191556024
 MonoBehaviour:
@@ -73685,12 +73733,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe50cbb44b53f3469cd35ffe1eff2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
-  target: {fileID: 1390410586}
-  Health: 200
-  damage: 15
-  knockbackForce: 0
-  knockBackTime: 5
+  enemyPrefabs:
+  - {fileID: 569022353}
+  - {fileID: 943551309}
+  - {fileID: 167380513}
+  spawnDelay: 1
+  waves: 10
+  enemiesPerWave: 3
+  waveDelay: 3
+  decreaseTime: 5
 --- !u!1 &1390410584
 GameObject:
   m_ObjectHideFlags: 0
@@ -84510,6 +84561,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Montery
       objectReference: {fileID: 0}
+    - target: {fileID: 1856182906440108530, guid: a70b7ceb3db20614f9ae41854bf23111, type: 3}
+      propertyPath: m_Size.x
+      value: 0.12822452
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856182906440108530, guid: a70b7ceb3db20614f9ae41854bf23111, type: 3}
+      propertyPath: m_Size.y
+      value: 0.26718414
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856182906440108530, guid: a70b7ceb3db20614f9ae41854bf23111, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0075160563
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856182906440108530, guid: a70b7ceb3db20614f9ae41854bf23111, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.012425214
+      objectReference: {fileID: 0}
     - target: {fileID: 1856182906440108534, guid: a70b7ceb3db20614f9ae41854bf23111, type: 3}
       propertyPath: target
       value: 
@@ -84627,6 +84694,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monterz
       objectReference: {fileID: 0}
+    - target: {fileID: 3070575367932533863, guid: b94a3c36e04b2eb4aa751dc6947b6f1c, type: 3}
+      propertyPath: m_Size.x
+      value: 0.07571891
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070575367932533863, guid: b94a3c36e04b2eb4aa751dc6947b6f1c, type: 3}
+      propertyPath: m_Size.y
+      value: 0.28807098
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070575367932533863, guid: b94a3c36e04b2eb4aa751dc6947b6f1c, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0033376738
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070575367932533863, guid: b94a3c36e04b2eb4aa751dc6947b6f1c, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.004953213
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b94a3c36e04b2eb4aa751dc6947b6f1c, type: 3}
 --- !u!1001 &8870701029628206049
@@ -84683,6 +84766,22 @@ PrefabInstance:
     - target: {fileID: 8870701028604761560, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870701028604761562, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
+      propertyPath: m_Size.x
+      value: 0.17363594
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870701028604761562, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
+      propertyPath: m_Size.y
+      value: 0.07355456
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870701028604761562, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.018989779
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870701028604761562, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.029617772
       objectReference: {fileID: 0}
     - target: {fileID: 8870701028604761565, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
       propertyPath: target
