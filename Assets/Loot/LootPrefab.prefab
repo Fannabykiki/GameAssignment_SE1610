@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3708307077179976641}
   - component: {fileID: 2287038871162523668}
   - component: {fileID: 7510759285482619427}
+  - component: {fileID: -2217062479616332789}
+  - component: {fileID: 6773383156097689332}
   m_Layer: 0
   m_Name: LootPrefab
   m_TagString: Untagged
@@ -106,3 +108,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-2217062479616332789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2838288906660507799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49baf9cb756a8b44591d55bc49d63c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!58 &6773383156097689332
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2838288906660507799}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.060720444, y: -0.095811605}
+  serializedVersion: 2
+  m_Radius: 0.09702587
