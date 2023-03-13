@@ -35495,6 +35495,26 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &167380513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1856182906440108528, guid: a70b7ceb3db20614f9ae41854bf23111, type: 3}
+  m_PrefabInstance: {fileID: 1856182906817873961}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &167380520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167380513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22017ae5f682fc4ba2dc5eee207d148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 2838288906660507799, guid: 34ca304f60628be4d9a93b364a7462e6, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 9faa393e516860949bcb8f4f58057d7b, type: 2}
 --- !u!1 &195552090
 GameObject:
   m_ObjectHideFlags: 0
@@ -36304,51 +36324,6 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 754918238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 0
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 0
-  m_TargetGraphic: {fileID: 0}
-  m_FillRect: {fileID: 1028208774}
-  m_HandleRect: {fileID: 0}
-  m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &942608864
 GameObject:
   m_ObjectHideFlags: 0
@@ -36558,8 +36533,6 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1028208773}
-  m_CullTransparentMesh: 1
 --- !u!1 &1064735874
 GameObject:
   m_ObjectHideFlags: 0
@@ -73950,12 +73923,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe50cbb44b53f3469cd35ffe1eff2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs: []
-  spawnDelay: 1
-  waves: 10
-  enemiesPerWave: 3
-  waveDelay: 3
-  decreaseTime: 5
+  Speed: 1
+  target: {fileID: 1390410586}
+  Health: 200
+  damage: 15
+  knockbackForce: 0
+  knockBackTime: 5
 --- !u!1 &1390410584
 GameObject:
   m_ObjectHideFlags: 0
@@ -84793,6 +84766,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Montery
       objectReference: {fileID: 0}
+    - target: {fileID: 1856182906440108530, guid: a70b7ceb3db20614f9ae41854bf23111, type: 3}
+      propertyPath: m_Size.x
+      value: 0.12822452
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856182906440108530, guid: a70b7ceb3db20614f9ae41854bf23111, type: 3}
+      propertyPath: m_Size.y
+      value: 0.26718414
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856182906440108530, guid: a70b7ceb3db20614f9ae41854bf23111, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0075160563
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856182906440108530, guid: a70b7ceb3db20614f9ae41854bf23111, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.012425214
+      objectReference: {fileID: 0}
     - target: {fileID: 1856182906440108534, guid: a70b7ceb3db20614f9ae41854bf23111, type: 3}
       propertyPath: target
       value: 
@@ -84910,6 +84899,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monterz
       objectReference: {fileID: 0}
+    - target: {fileID: 3070575367932533863, guid: b94a3c36e04b2eb4aa751dc6947b6f1c, type: 3}
+      propertyPath: m_Size.x
+      value: 0.11294977
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070575367932533863, guid: b94a3c36e04b2eb4aa751dc6947b6f1c, type: 3}
+      propertyPath: m_Size.y
+      value: 0.28807098
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070575367932533863, guid: b94a3c36e04b2eb4aa751dc6947b6f1c, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0059969276
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070575367932533863, guid: b94a3c36e04b2eb4aa751dc6947b6f1c, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.0049532056
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b94a3c36e04b2eb4aa751dc6947b6f1c, type: 3}
 --- !u!1001 &8870701029628206049
@@ -84966,6 +84971,22 @@ PrefabInstance:
     - target: {fileID: 8870701028604761560, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870701028604761562, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
+      propertyPath: m_Size.x
+      value: 0.17363594
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870701028604761562, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
+      propertyPath: m_Size.y
+      value: 0.07355456
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870701028604761562, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.018989779
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870701028604761562, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.029617772
       objectReference: {fileID: 0}
     - target: {fileID: 8870701028604761565, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
       propertyPath: target
