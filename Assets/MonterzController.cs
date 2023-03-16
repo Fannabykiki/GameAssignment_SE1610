@@ -7,7 +7,7 @@ public class MonterzController : MonoBehaviour
 {
     public float Speed = 2f;
     public Transform target;
-    public int Health = 200;
+    public int Health = 2;
     public int damage = 15;
     private int currentHealth;
     private Rigidbody2D rb;
@@ -21,7 +21,7 @@ public class MonterzController : MonoBehaviour
     {
         currentHealth = Health;
         rb = GetComponent<Rigidbody2D>();
-        
+
     }
 
     void FixedUpdate()
@@ -30,6 +30,10 @@ public class MonterzController : MonoBehaviour
         {
             Vector2 direction = (target.position - transform.position).normalized;
             rb.velocity = direction * Speed;
+        }
+        if (currentHealth <= 0)
+        {
+            Die();
         }
     }
 
@@ -50,9 +54,7 @@ public class MonterzController : MonoBehaviour
                 rb.AddForce(dir, ForceMode2D.Impulse);
                 StartCoroutine(knockBack(rb));
             }
-
         }
-
     }
 
     private IEnumerator knockBack(Rigidbody2D rb)
@@ -79,7 +81,12 @@ public class MonterzController : MonoBehaviour
 
     private void Die()
     {
+        GetComponent<LootBag>().InstantiatateLoot(transform.position);
         // Khi quái vật chết, xóa nó khỏi scene
         Destroy(gameObject);
+    }
+    void OnHit(int damage)
+    {
+        currentHealth -= damage;
     }
 }

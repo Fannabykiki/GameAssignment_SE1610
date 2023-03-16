@@ -7,7 +7,7 @@ public class MonterxController : MonoBehaviour
 {
     public float Speed = 1f;
     public Transform target;
-    public int Health = 100;
+    public int Health = 1;
     private int currentHealth;
     public int damage = 0;
     private Rigidbody2D rb;
@@ -16,7 +16,7 @@ public class MonterxController : MonoBehaviour
     private Vector3 initialPosition;
     private PlayerController playerController;
     private MonterxController monterxController;
-   
+
     void Start()
     {
         currentHealth = Health;
@@ -25,7 +25,7 @@ public class MonterxController : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+
         // Di chuyển quái vật về trụ thành
         if (target != null)
         {
@@ -36,11 +36,11 @@ public class MonterxController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(monterxController!= null)
+        if (monterxController != null)
         {
             damage = (int)monterxController.damage;
         }
-        if(collision.transform.tag == "Tower")
+        if (collision.transform.tag == "Tower")
         {
             Rigidbody2D rb = transform.GetComponent<Rigidbody2D>();
             if (rb != null)
@@ -51,21 +51,19 @@ public class MonterxController : MonoBehaviour
                 rb.AddForce(dir, ForceMode2D.Impulse);
                 StartCoroutine(knockBack(rb));
             }
-           
         }
-        
-    }    
-    
-private IEnumerator knockBack(Rigidbody2D rb)
-{
-    if (rb != null)
-    {
-        yield return new WaitForSeconds(knockBackTime);
-        rb.velocity = Vector2.zero;
-        //rb.isKinematic = true;
     }
-}
-void OnTriggerEnter2D(Collider2D other)
+
+    private IEnumerator knockBack(Rigidbody2D rb)
+    {
+        if (rb != null)
+        {
+            yield return new WaitForSeconds(knockBackTime);
+            rb.velocity = Vector2.zero;
+            //rb.isKinematic = true;
+        }
+    }
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
         {
@@ -77,11 +75,16 @@ void OnTriggerEnter2D(Collider2D other)
             }
         }
     }
-   
+
     private void Die()
     {
+        GetComponent<LootBag>().InstantiatateLoot(transform.position);
         // Khi quái vật chết, xóa nó khỏi scene
         Destroy(gameObject);
+    }
+    void OnHit(int damage)
+    {
+        currentHealth -= damage;
     }
 }
 
