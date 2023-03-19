@@ -7,12 +7,22 @@ public class MonterzController : MonoBehaviour
 {
     public float Speed = 2f;
     public Transform target;
-    public int Health = 2;
+    public float Health = 2f;
     public int damage = 15;
-    private int currentHealth;
+    private float currentHealth;
     private Rigidbody2D rb;
     private PlayerController playerController;
     private MonterzController monterzController;
+
+    //effects from skills
+    public void TakeDamage(float damagePlayer)
+    {
+        Health -= damagePlayer;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -74,7 +84,7 @@ public class MonterzController : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Die()
     {
         GetComponent<LootBag>().InstantiatateLoot(transform.position);
         // Khi quái vật chết, xóa nó khỏi scene

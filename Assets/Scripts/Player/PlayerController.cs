@@ -49,13 +49,16 @@ public class PlayerController : MonoBehaviour
     public float cooldownDuration2 = 10f;
 
     private bool isCooldown2 = false;
+
+    public float damage = 10f;
+    public float knockback = 500f;
     //Skill1
     public void ShowSkill1()
     {
         if (!isCooldown)
         {
             skillPrefab.SetActive(true);
-            Invoke("HideSkill1", showDuration);
+            Invoke("HideSkill", showDuration);
             isCooldown = true;
             button.interactable = false;
             Invoke("EndCooldown", cooldownDuration);
@@ -67,31 +70,28 @@ public class PlayerController : MonoBehaviour
         if (!isCooldown2)
         {
             skillPrefab2.SetActive(true);
-            Invoke("HideSkill2", showDuration2);
+            Invoke("HideSkill", showDuration2);
             isCooldown2 = true;
             button2.interactable = false;
-            Invoke("EndCooldown2", cooldownDuration2);
+            Invoke("EndCooldown", cooldownDuration2);
         }
     }
 
-    private void HideSkill1()
+    //Skill
+
+    private void HideSkill()
     {
         skillPrefab.SetActive(false);
-    }
-    private void HideSkill2()
-    {
         skillPrefab2.SetActive(false);
     }
     private void EndCooldown()
     {
         isCooldown = false;
         button.interactable = true;
-    }
-    private void EndCooldown2()
-    {
         isCooldown2 = false;
         button2.interactable = true;
-    }
+    } 
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -207,6 +207,29 @@ public class PlayerController : MonoBehaviour
             currentHealth = Mathf.Clamp(currentHealth, 0, playerMaxHealth);
             collectible.Collect();
         }
+
+        //effects on monsters
+        //if (collision.CompareTag("Enemy"))
+        //{
+        //    Tính toán sát thương
+        //    MonterxController enemy = collision.GetComponent<MonterxController>();
+        //    enemy.TakeDamage(damage);
+        //    MonteryController enemy1 = collision.GetComponent<MonteryController>();
+        //    enemy1.TakeDamage(damage);
+        //    MonterzController enemy2 = collision.GetComponent<MonterzController>();
+        //    enemy2.TakeDamage(damage);
+
+        //    Áp dụng knockback
+        //   Rigidbody2D enemyRb = collision.GetComponent<Rigidbody2D>();
+        //    Vector2 knockbackDirection = (enemy.transform.position - transform.position).normalized;
+        //    enemyRb.AddForce(knockbackDirection * knockback);
+
+        //    Vector2 knockbackDirection1 = (enemy1.transform.position - transform.position).normalized;
+        //    enemyRb.AddForce(knockbackDirection1 * knockback);
+
+        //    Vector2 knockbackDirection2 = (enemy2.transform.position - transform.position).normalized;
+        //    enemyRb.AddForce(knockbackDirection2 * knockback);
+        //}
     }
 
     public void EndAttack()
