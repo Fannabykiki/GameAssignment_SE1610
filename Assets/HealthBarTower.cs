@@ -11,7 +11,7 @@ public class HealthBarTower : MonoBehaviour
         slider.maxValue = health;
         slider.value = health;
     }
-    // Start is called before the first frame update
+    
     public void SetHealth(int health)
     {
         slider.value = health;

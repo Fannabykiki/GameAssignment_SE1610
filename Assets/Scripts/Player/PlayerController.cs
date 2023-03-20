@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour
     Collider2D swordCollider;
     public Transform characterTransform;
     public Transform swordTransform;
-    private int playerHealth = 100;
-
+    private int playerMaxHealth = 100;
+    private int currentHealth = 100;
     public float speed = 5f;
     private GameObject player;
     //moveW
@@ -197,6 +197,16 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
 
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        ICollectible collectible = collision.GetComponent<ICollectible>();
+        if (collectible != null)
+        {
+            currentHealth +=  10;
+            currentHealth = Mathf.Clamp(currentHealth, 0, playerMaxHealth);
+            collectible.Collect();
+        }
     }
 
     public void EndAttack()

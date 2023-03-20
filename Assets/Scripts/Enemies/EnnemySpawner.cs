@@ -12,8 +12,8 @@ public class EnnemySpawner : MonoBehaviour
     public float spawnDelay = 1f;
     public int waves = 10;
     public int enemiesPerWave = 3;
-    public float waveDelay = 3f;
-    public float decreaseTime = 5;
+    public float waveDelay = 5f;
+    public float decreaseTime = 10;
     private int currentWave = 0;
     private int currentEnemies = 0;
     float counter = 0;
@@ -46,7 +46,7 @@ public class EnnemySpawner : MonoBehaviour
     void Update()
     {
         counter += Time.deltaTime;
-        if (counter >= 5 && (int)counter % 5 == 0)
+        if (counter >= 10 && (int)counter % 10 == 0)
         {
             counter = 0;
             enemiesPerWave += 1;
