@@ -81,7 +81,7 @@ public class MonterzController : MonoBehaviour
 
     private void Die()
     {
-        GetComponent<LootBag>().InstantiatateLoot(transform.position);
+        //GetComponent<LootBag>().InstantiatateLoot(transform.position);
         // Khi quái vật chết, xóa nó khỏi scene
         Destroy(gameObject);
     }

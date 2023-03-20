@@ -32,6 +32,10 @@ public class MonterxController : MonoBehaviour
             Vector2 direction = (target.position - transform.position).normalized;
             rb.velocity = direction * Speed;
         }
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -78,7 +82,7 @@ public class MonterxController : MonoBehaviour
 
     private void Die()
     {
-        GetComponent<LootBag>().InstantiatateLoot(transform.position);
+        //GetComponent<LootBag>().InstantiatateLoot(transform.position);
         // Khi quái vật chết, xóa nó khỏi scene
         Destroy(gameObject);
     }

@@ -36275,7 +36275,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 754918239}
-  - component: {fileID: 754918241}
   - component: {fileID: 754918240}
   m_Layer: 0
   m_Name: HealthBar
@@ -36317,13 +36316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75fe35d8a49e6b949be7324c8c175a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 754918241}
---- !u!114 &754918241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  slider: {fileID: 0}
 --- !u!1 &942608864
 GameObject:
   m_ObjectHideFlags: 0
@@ -36533,6 +36526,8 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028208773}
+  m_CullTransparentMesh: 1
 --- !u!1 &1064735874
 GameObject:
   m_ObjectHideFlags: 0
@@ -73781,8 +73776,8 @@ Transform:
   m_GameObject: {fileID: 1160726242}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 8.8935, y: 4.4854, z: 0}
-  m_LocalScale: {x: 3.5803936, y: 3.6175716, z: 3.319482}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3.580394, y: 3.617572, z: 3.3194826}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1651074755}
   - {fileID: 1508993769}
@@ -73923,12 +73918,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe50cbb44b53f3469cd35ffe1eff2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
-  target: {fileID: 1390410586}
-  Health: 200
-  damage: 15
-  knockbackForce: 0
-  knockBackTime: 5
+  enemyPrefabs: []
+  spawnDelay: 1
+  waves: 10
+  enemiesPerWave: 3
+  waveDelay: 5
+  decreaseTime: 10
 --- !u!1 &1390410584
 GameObject:
   m_ObjectHideFlags: 0
@@ -73941,6 +73936,7 @@ GameObject:
   - component: {fileID: 1390410585}
   - component: {fileID: 1390410587}
   - component: {fileID: 1390410588}
+  - component: {fileID: 1390410589}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Tower
@@ -74023,7 +74019,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390410584}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -74048,6 +74044,32 @@ MonoBehaviour:
   currentHealth: 300
   healthBarTower: {fileID: 754918240}
   EndGamePanel: {fileID: 0}
+--- !u!61 &1390410589
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390410584}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.63, y: 4.37}
+    newSize: {x: 1.63, y: 4.37}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.63, y: 4.37}
+  m_EdgeRadius: 0
 --- !u!1 &1508993768
 GameObject:
   m_ObjectHideFlags: 0
@@ -74094,7 +74116,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.11751667, y: 0.039789952}
+  m_Offset: {x: 0.14169632, y: 0.039789952}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -74105,7 +74127,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2083084, y: 0.20420171}
+  m_Size: {x: 0.25666752, y: 0.20420171}
   m_EdgeRadius: 0
 --- !u!114 &1508993771
 MonoBehaviour:
@@ -84974,19 +84996,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8870701028604761562, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
       propertyPath: m_Size.x
-      value: 0.17363594
+      value: 0.40077668
       objectReference: {fileID: 0}
     - target: {fileID: 8870701028604761562, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
       propertyPath: m_Size.y
-      value: 0.07355456
+      value: 0.14577216
       objectReference: {fileID: 0}
     - target: {fileID: 8870701028604761562, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
       propertyPath: m_Offset.x
-      value: -0.018989779
+      value: 0.0037243068
       objectReference: {fileID: 0}
     - target: {fileID: 8870701028604761562, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
       propertyPath: m_Offset.y
-      value: -0.029617772
+      value: -0.01223205
       objectReference: {fileID: 0}
     - target: {fileID: 8870701028604761565, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
       propertyPath: target
