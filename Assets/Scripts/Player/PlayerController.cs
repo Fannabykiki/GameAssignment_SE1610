@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private int playerMaxHealth = 100;
     private int currentHealth = 100;
     public float speed = 5f;
-    private GameObject player;
+    GameObject player;
     //moveW
 
     private float left_right;
@@ -100,8 +100,10 @@ public class PlayerController : MonoBehaviour
         skillPrefab.SetActive(false);
         skillPrefab2.SetActive(false);
         swordCollider = swordHitbox.GetComponent<Collider2D>();
-        characterTransform = player.transform;
-        swordTransform = transform;
+        
+            //characterTransform = player.transform;
+            swordTransform = transform;
+        
 
     }
 
@@ -109,16 +111,16 @@ public class PlayerController : MonoBehaviour
     void Update()
 
     {
-        if (characterTransform.localScale.x > 0)
-        {
-            // nếu nhân vật quay sang phải, xoay gameobject kiếm về bên phải
-            swordTransform.localScale = new Vector3(1, 1, 1);
-        }
-        else
-        {
-            // nếu nhân vật quay sang trái, xoay gameobject kiếm về bên trái
-            swordTransform.localScale = new Vector3(-1, 1, 1);
-        }
+        //if (characterTransform.localScale.x > 0)
+        //{
+        //    // nếu nhân vật quay sang phải, xoay gameobject kiếm về bên phải
+        //    swordTransform.localScale = new Vector3(1, 1, 1);
+        //}
+        //else
+        //{
+        //    // nếu nhân vật quay sang trái, xoay gameobject kiếm về bên trái
+        //    swordTransform.localScale = new Vector3(-1, 1, 1);
+        //}
         //move
         if (!isAttacking)
         {

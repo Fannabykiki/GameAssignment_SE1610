@@ -21,7 +21,7 @@ public class EnnemySpawner : MonoBehaviour
     void Start()
     {
         currentEnemies = enemiesPerWave; //3
-        StartCoroutine(SpawnWaves());
+        //StartCoroutine(SpawnWaves());
     }
     IEnumerator SpawnWaves()
     {
