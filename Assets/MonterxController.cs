@@ -93,6 +93,7 @@ public class MonterxController : MonoBehaviour
     {
         //GetComponent<LootBag>().InstantiatateLoot(transform.position);
         // Khi quái vật chết, xóa nó khỏi scene
+        ScoreScript.scoreValue += 20;
         Destroy(gameObject);
     }
     void OnHit(int damage)
