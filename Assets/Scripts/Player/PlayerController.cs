@@ -22,12 +22,20 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public Slider healthSlider;
     public GameObject gameOverPanel;
+   
+    //die
+    private SpriteRenderer spriteRenderer;
+    public float blinkTime = 0.1f;
+    public float waitTime = 5f;
+    private float elapsedTime = 0f; // Thời gian đã trôi qua sau khi hết máu
+    private bool canMove = true;
+    private bool canAttack = true;
     //moveW
 
     private float left_right;
     private float up_down;
     private bool isfacingRight = true;
-    
+
     public bool isAttacking = false;
     //attack
     public float attackRange;
@@ -36,7 +44,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask enemyLayers;
     //speedUp
     public float speedBoost = 10f;
-    private float speedUpTime ;
+    private float speedUpTime;
     public float SpeedUpTime = 1f;
     bool speedOnce = false;
     ////skill1
@@ -94,10 +102,11 @@ public class PlayerController : MonoBehaviour
         button.interactable = true;
         isCooldown2 = false;
         button2.interactable = true;
-    } 
+    }
 
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         currentHealth = playerMaxHealth;
         healthSlider.maxValue = playerMaxHealth;
         healthSlider.value = playerMaxHealth;
@@ -108,10 +117,10 @@ public class PlayerController : MonoBehaviour
         skillPrefab.SetActive(false);
         skillPrefab2.SetActive(false);
         swordCollider = swordHitbox.GetComponent<Collider2D>();
-        
-            //characterTransform = player.transform;
-            swordTransform = transform;
-        
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        //characterTransform = player.transform;
+        swordTransform = transform;
+
 
     }
 
@@ -119,26 +128,16 @@ public class PlayerController : MonoBehaviour
     void Update()
 
     {
-        //if (characterTransform.localScale.x > 0)
-        //{
-        //    // nếu nhân vật quay sang phải, xoay gameobject kiếm về bên phải
-        //    swordTransform.localScale = new Vector3(1, 1, 1);
-        //}
-        //else
-        //{
-        //    // nếu nhân vật quay sang trái, xoay gameobject kiếm về bên trái
-        //    swordTransform.localScale = new Vector3(-1, 1, 1);
-        //}
-        //move
 
-        Debug.Log(healthSlider.value);
-        if (!isAttacking)
+
+
+        if (!isAttacking && canMove)
         {
             left_right = Input.GetAxis("Horizontal");
             up_down = Input.GetAxis("Vertical");
             rb.velocity = new Vector2(left_right * speed, rb.velocity.y);
             rb.velocity = new Vector2(rb.velocity.x, up_down * speed);
-            
+
         }
         //animation
         flip();
@@ -151,15 +150,15 @@ public class PlayerController : MonoBehaviour
         }
 
         //attack
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && canAttack)
         {
             ani.SetTrigger("attack");
             isAttacking = true;
             rb.velocity = Vector2.zero;
-            
+
             //Attack();
         }
-       
+
 
         //SpeedUp
         if (Input.GetKeyDown(KeyCode.Z) && speedUpTime <= 0)
@@ -169,7 +168,7 @@ public class PlayerController : MonoBehaviour
             speedOnce = true;
 
         }
-        if(speedUpTime<= 0 && speedOnce == true)
+        if (speedUpTime <= 0 && speedOnce == true)
         {
             speed -= speedBoost;
             speedOnce = false;
@@ -192,20 +191,60 @@ public class PlayerController : MonoBehaviour
             skill.transform.rotation = Quaternion.Euler(0, 0, transform.eulerAngles.z);
             ShowSkill2();
         }
-    }
-    
 
+        //die
+        if (currentHealth <= 0)
+        {
+            elapsedTime += Time.deltaTime; // Tính thời gian đã trôi qua
+
+
+            if (elapsedTime >= waitTime)
+            {
+                currentHealth += 100;
+                healthSlider.value = currentHealth;
+                canMove = true;
+                canAttack = true;
+                StopCoroutine(Blink());
+                spriteRenderer.enabled = true;
+                GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+                GetComponent<Collider2D>().enabled = true;
+                // Thiết lập lại thời gian đếm về 0
+                elapsedTime = 0f;
+                
+            }
+            else
+            {
+                canMove = false;
+                canAttack = false;
+                GetComponent<Collider2D>().enabled = false;
+                GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
+                GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+                StartCoroutine(Blink());
+
+
+            }
+
+        }
+    }
+
+    IEnumerator Blink()
+    {
+
+        spriteRenderer.enabled = !spriteRenderer.enabled;
+        yield return new WaitForSeconds(blinkTime);
+
+    }
     void flip()
     {
-        
-        if(isfacingRight && left_right <0 || !isfacingRight && left_right > 0)
+
+        if (isfacingRight && left_right < 0 || !isfacingRight && left_right > 0)
         {
             isfacingRight = !isfacingRight;
-            
+
             Vector3 scale = transform.localScale;
             scale.x = scale.x * -1;
             transform.localScale = scale;
-            
+
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -217,32 +256,46 @@ public class PlayerController : MonoBehaviour
             healthSlider.value = currentHealth;
             if (currentHealth <= 0)
             {
-                ShowGameOver(); 
+                canMove = false;
+                canAttack = false;
+                spriteRenderer.enabled = false;
             }
+            //if (currentHealth <= 0)
+            //{
+            //    ShowGameOver(); 
+            //}
 
-        } else if (collision.gameObject.CompareTag("MonsterY"))
+        }
+        else if (collision.gameObject.CompareTag("MonsterY"))
         {
             currentHealth -= 10;
             healthSlider.value = currentHealth;
             if (currentHealth <= 0)
             {
-                ShowGameOver(); 
+                canMove = false;
+                canAttack = false;
+                spriteRenderer.enabled = false;
             }
+            //if (currentHealth <= 0)
+            //{
+            //    ShowGameOver(); 
+            //}
         }
     }
+
     private void ShowGameOver()
     {
         Time.timeScale = 0;
         gameOverPanel.SetActive(true);
         scoreText.text = "Your Score: " + ScoreScript.scoreValue.ToString();
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         ICollectible collectible = collision.GetComponent<ICollectible>();
         if (collectible != null)
         {
-            currentHealth +=  10;
+            currentHealth += 10;
             currentHealth = Mathf.Clamp(currentHealth, 0, playerMaxHealth);
             collectible.Collect();
         }
@@ -275,5 +328,5 @@ public class PlayerController : MonoBehaviour
     {
         isAttacking = false;
     }
-    
+
 }
