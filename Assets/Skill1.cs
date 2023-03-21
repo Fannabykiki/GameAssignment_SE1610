@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Skill2 : MonoBehaviour
+public class Skill1 : MonoBehaviour
 {
     public float damage = 10f;
     public float knockback = 500f;

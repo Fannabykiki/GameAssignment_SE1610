@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -15,15 +16,26 @@ public class PlayerController : MonoBehaviour
     public Transform characterTransform;
     public Transform swordTransform;
     private int playerMaxHealth = 100;
-    private int currentHealth = 100;
+    private int currentHealth;
     public float speed = 5f;
-    private GameObject player;
+    GameObject player;
+    public TextMeshProUGUI scoreText;
+    public Slider healthSlider;
+    public GameObject gameOverPanel;
+   
+    //die
+    private SpriteRenderer spriteRenderer;
+    public float blinkTime = 0.1f;
+    public float waitTime = 5f;
+    private float elapsedTime = 0f; // Thời gian đã trôi qua sau khi hết máu
+    private bool canMove = true;
+    private bool canAttack = true;
     //moveW
 
     private float left_right;
     private float up_down;
     private bool isfacingRight = true;
-    
+
     public bool isAttacking = false;
     //attack
     public float attackRange;
@@ -32,7 +44,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask enemyLayers;
     //speedUp
     public float speedBoost = 10f;
-    private float speedUpTime ;
+    private float speedUpTime;
     public float SpeedUpTime = 1f;
     bool speedOnce = false;
     ////skill1
@@ -49,13 +61,16 @@ public class PlayerController : MonoBehaviour
     public float cooldownDuration2 = 10f;
 
     private bool isCooldown2 = false;
+
+    public float damage = 10f;
+    public float knockback = 500f;
     //Skill1
     public void ShowSkill1()
     {
         if (!isCooldown)
         {
             skillPrefab.SetActive(true);
-            Invoke("HideSkill1", showDuration);
+            Invoke("HideSkill", showDuration);
             isCooldown = true;
             button.interactable = false;
             Invoke("EndCooldown", cooldownDuration);
@@ -67,41 +82,45 @@ public class PlayerController : MonoBehaviour
         if (!isCooldown2)
         {
             skillPrefab2.SetActive(true);
-            Invoke("HideSkill2", showDuration2);
+            Invoke("HideSkill", showDuration2);
             isCooldown2 = true;
             button2.interactable = false;
-            Invoke("EndCooldown2", cooldownDuration2);
+            Invoke("EndCooldown", cooldownDuration2);
         }
     }
 
-    private void HideSkill1()
+    //Skill
+
+    private void HideSkill()
     {
         skillPrefab.SetActive(false);
-    }
-    private void HideSkill2()
-    {
         skillPrefab2.SetActive(false);
     }
     private void EndCooldown()
     {
         isCooldown = false;
         button.interactable = true;
-    }
-    private void EndCooldown2()
-    {
         isCooldown2 = false;
         button2.interactable = true;
     }
+
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        currentHealth = playerMaxHealth;
+        healthSlider.maxValue = playerMaxHealth;
+        healthSlider.value = playerMaxHealth;
+        gameOverPanel.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
 
         skillPrefab.SetActive(false);
         skillPrefab2.SetActive(false);
         swordCollider = swordHitbox.GetComponent<Collider2D>();
-        characterTransform = player.transform;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        //characterTransform = player.transform;
         swordTransform = transform;
+
 
     }
 
@@ -109,24 +128,16 @@ public class PlayerController : MonoBehaviour
     void Update()
 
     {
-        if (characterTransform.localScale.x > 0)
-        {
-            // nếu nhân vật quay sang phải, xoay gameobject kiếm về bên phải
-            swordTransform.localScale = new Vector3(1, 1, 1);
-        }
-        else
-        {
-            // nếu nhân vật quay sang trái, xoay gameobject kiếm về bên trái
-            swordTransform.localScale = new Vector3(-1, 1, 1);
-        }
-        //move
-        if (!isAttacking)
+
+
+
+        if (!isAttacking && canMove)
         {
             left_right = Input.GetAxis("Horizontal");
             up_down = Input.GetAxis("Vertical");
             rb.velocity = new Vector2(left_right * speed, rb.velocity.y);
             rb.velocity = new Vector2(rb.velocity.x, up_down * speed);
-            
+
         }
         //animation
         flip();
@@ -139,23 +150,25 @@ public class PlayerController : MonoBehaviour
         }
 
         //attack
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && canAttack)
         {
             ani.SetTrigger("attack");
             isAttacking = true;
             rb.velocity = Vector2.zero;
+
             //Attack();
         }
 
+
         //SpeedUp
-        if(Input.GetKeyDown(KeyCode.Z) && speedUpTime <= 0)
+        if (Input.GetKeyDown(KeyCode.Z) && speedUpTime <= 0)
         {
             speed += speedBoost;
             speedUpTime = SpeedUpTime;
             speedOnce = true;
 
         }
-        if(speedUpTime<= 0 && speedOnce == true)
+        if (speedUpTime <= 0 && speedOnce == true)
         {
             speed -= speedBoost;
             speedOnce = false;
@@ -178,48 +191,142 @@ public class PlayerController : MonoBehaviour
             skill.transform.rotation = Quaternion.Euler(0, 0, transform.eulerAngles.z);
             ShowSkill2();
         }
-    }
-    
 
+        //die
+        if (currentHealth <= 0)
+        {
+            elapsedTime += Time.deltaTime; // Tính thời gian đã trôi qua
+
+
+            if (elapsedTime >= waitTime)
+            {
+                currentHealth += 100;
+                healthSlider.value = currentHealth;
+                canMove = true;
+                canAttack = true;
+                StopCoroutine(Blink());
+                spriteRenderer.enabled = true;
+                GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+                GetComponent<Collider2D>().enabled = true;
+                // Thiết lập lại thời gian đếm về 0
+                elapsedTime = 0f;
+                
+            }
+            else
+            {
+                canMove = false;
+                canAttack = false;
+                GetComponent<Collider2D>().enabled = false;
+                GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
+                GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+                StartCoroutine(Blink());
+
+
+            }
+
+        }
+    }
+
+    IEnumerator Blink()
+    {
+
+        spriteRenderer.enabled = !spriteRenderer.enabled;
+        yield return new WaitForSeconds(blinkTime);
+
+    }
     void flip()
     {
-        
-        if(isfacingRight && left_right <0 || !isfacingRight && left_right > 0)
+
+        if (isfacingRight && left_right < 0 || !isfacingRight && left_right > 0)
         {
             isfacingRight = !isfacingRight;
-            
+
             Vector3 scale = transform.localScale;
             scale.x = scale.x * -1;
             transform.localScale = scale;
-            
+
         }
     }
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("MonsterZ"))
+        {
 
+            currentHealth -= 15;
+            healthSlider.value = currentHealth;
+            if (currentHealth <= 0)
+            {
+                canMove = false;
+                canAttack = false;
+                spriteRenderer.enabled = false;
+            }
+            //if (currentHealth <= 0)
+            //{
+            //    ShowGameOver(); 
+            //}
+
+        }
+        else if (collision.gameObject.CompareTag("MonsterY"))
+        {
+            currentHealth -= 10;
+            healthSlider.value = currentHealth;
+            if (currentHealth <= 0)
+            {
+                canMove = false;
+                canAttack = false;
+                spriteRenderer.enabled = false;
+            }
+            //if (currentHealth <= 0)
+            //{
+            //    ShowGameOver(); 
+            //}
+        }
     }
+
+    private void ShowGameOver()
+    {
+        Time.timeScale = 0;
+        gameOverPanel.SetActive(true);
+        scoreText.text = "Your Score: " + ScoreScript.scoreValue.ToString();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         ICollectible collectible = collision.GetComponent<ICollectible>();
         if (collectible != null)
         {
-            currentHealth +=  10;
+            currentHealth += 10;
             currentHealth = Mathf.Clamp(currentHealth, 0, playerMaxHealth);
             collectible.Collect();
         }
+
+        //effects on monsters
+        //if (collision.CompareTag("Enemy"))
+        //{
+        //    Tính toán sát thương
+        //    MonterxController enemy = collision.GetComponent<MonterxController>();
+        //    enemy.TakeDamage(damage);
+        //    MonteryController enemy1 = collision.GetComponent<MonteryController>();
+        //    enemy1.TakeDamage(damage);
+        //    MonterzController enemy2 = collision.GetComponent<MonterzController>();
+        //    enemy2.TakeDamage(damage);
+
+        //    Áp dụng knockback
+        //   Rigidbody2D enemyRb = collision.GetComponent<Rigidbody2D>();
+        //    Vector2 knockbackDirection = (enemy.transform.position - transform.position).normalized;
+        //    enemyRb.AddForce(knockbackDirection * knockback);
+
+        //    Vector2 knockbackDirection1 = (enemy1.transform.position - transform.position).normalized;
+        //    enemyRb.AddForce(knockbackDirection1 * knockback);
+
+        //    Vector2 knockbackDirection2 = (enemy2.transform.position - transform.position).normalized;
+        //    enemyRb.AddForce(knockbackDirection2 * knockback);
+        //}
     }
 
     public void EndAttack()
     {
         isAttacking = false;
     }
-    //void Attack()
-    //{
-    //    Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
-    //    foreach (Collider2D enemy in hitEnemies)
-    //    {
-    //        enemy.GetComponent<EnemyController>().TakeDamage(attackDamage);
-    //    }
-    //}
 }

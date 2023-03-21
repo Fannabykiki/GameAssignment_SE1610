@@ -7,15 +7,23 @@ public class MonterxController : MonoBehaviour
 {
     public float Speed = 1f;
     public Transform target;
-    public int Health = 1;
-    private int currentHealth;
+    public float Health = 1f;
+    private float currentHealth;
     public int damage = 0;
     private Rigidbody2D rb;
-    public float knockbackForce;
-    public float knockBackTime = 5f;
-    private Vector3 initialPosition;
+
     private PlayerController playerController;
     private MonterxController monterxController;
+
+    //effects from skills
+    public void TakeDamage(float damagePlayer)
+    {
+        Health -= damagePlayer;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -32,6 +40,10 @@ public class MonterxController : MonoBehaviour
             Vector2 direction = (target.position - transform.position).normalized;
             rb.velocity = direction * Speed;
         }
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -43,26 +55,27 @@ public class MonterxController : MonoBehaviour
         if (collision.transform.tag == "Tower")
         {
             Rigidbody2D rb = transform.GetComponent<Rigidbody2D>();
+            Vector2 direction = -(collision.transform.position - transform.position); //tính hướng đẩy
+            direction = direction.normalized * 10; //đưa hướng về 1
+            rb.AddForce(direction * 500f); //đẩy quái với lực 500
+        }
+        if (collision.transform.tag == "Player")
+
+        {
+            Rigidbody2D rb = transform.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                //rb.isKinematic = false;
-                Vector2 dir = -(collision.transform.position - transform.position);
-                dir = dir.normalized * 10;
-                rb.AddForce(dir, ForceMode2D.Impulse);
-                StartCoroutine(knockBack(rb));
+                Vector2 direction = -(collision.transform.position - transform.position); //tính hướng đẩy
+                direction = direction.normalized * 5; //đưa hướng về 1
+                rb.AddForce(direction * 300f); //đẩy quái với lực 300
             }
         }
+
+
     }
 
-    private IEnumerator knockBack(Rigidbody2D rb)
-    {
-        if (rb != null)
-        {
-            yield return new WaitForSeconds(knockBackTime);
-            rb.velocity = Vector2.zero;
-            //rb.isKinematic = true;
-        }
-    }
+
+   
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
@@ -76,10 +89,11 @@ public class MonterxController : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Die()
     {
-        GetComponent<LootBag>().InstantiatateLoot(transform.position);
+        //GetComponent<LootBag>().InstantiatateLoot(transform.position);
         // Khi quái vật chết, xóa nó khỏi scene
+        ScoreScript.scoreValue += 20;
         Destroy(gameObject);
     }
     void OnHit(int damage)
