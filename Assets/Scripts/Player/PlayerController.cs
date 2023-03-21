@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -18,6 +19,9 @@ public class PlayerController : MonoBehaviour
     private int currentHealth = 100;
     public float speed = 5f;
     GameObject player;
+    public TextMeshProUGUI scoreText;
+
+    public GameObject gameOverPanel;
     //moveW
 
     private float left_right;
@@ -94,6 +98,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        gameOverPanel.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
 
@@ -122,6 +127,8 @@ public class PlayerController : MonoBehaviour
         //    swordTransform.localScale = new Vector3(-1, 1, 1);
         //}
         //move
+        
+        
         if (!isAttacking)
         {
             left_right = Input.GetAxis("Horizontal");
@@ -146,11 +153,13 @@ public class PlayerController : MonoBehaviour
             ani.SetTrigger("attack");
             isAttacking = true;
             rb.velocity = Vector2.zero;
+            
             //Attack();
         }
+       
 
         //SpeedUp
-        if(Input.GetKeyDown(KeyCode.Z) && speedUpTime <= 0)
+        if (Input.GetKeyDown(KeyCode.Z) && speedUpTime <= 0)
         {
             speed += speedBoost;
             speedUpTime = SpeedUpTime;
@@ -196,10 +205,33 @@ public class PlayerController : MonoBehaviour
             
         }
     }
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("MonsterZ"))
+        {
 
+            currentHealth -= 15;
+            if (currentHealth <= 0)
+            {
+                ShowGameOver(); 
+            }
+
+        } else if (collision.gameObject.CompareTag("MonsterY"))
+        {
+            currentHealth -= 10;
+            if (currentHealth <= 0)
+            {
+                ShowGameOver(); 
+            }
+        }
     }
+    private void ShowGameOver()
+    {
+        Time.timeScale = 0;
+        gameOverPanel.SetActive(true);
+        scoreText.text = "Your Score: " + ScoreScript.scoreValue.ToString();
+    }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         ICollectible collectible = collision.GetComponent<ICollectible>();
@@ -238,13 +270,5 @@ public class PlayerController : MonoBehaviour
     {
         isAttacking = false;
     }
-    //void Attack()
-    //{
-    //    Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-
-    //    foreach (Collider2D enemy in hitEnemies)
-    //    {
-    //        enemy.GetComponent<EnemyController>().TakeDamage(attackDamage);
-    //    }
-    //}
+    
 }
