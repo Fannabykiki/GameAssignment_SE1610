@@ -16,11 +16,11 @@ public class PlayerController : MonoBehaviour
     public Transform characterTransform;
     public Transform swordTransform;
     private int playerMaxHealth = 100;
-    private int currentHealth = 100;
+    private int currentHealth;
     public float speed = 5f;
     GameObject player;
     public TextMeshProUGUI scoreText;
-
+    public Slider healthSlider;
     public GameObject gameOverPanel;
     //moveW
 
@@ -98,6 +98,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        currentHealth = playerMaxHealth;
+        healthSlider.maxValue = playerMaxHealth;
+        healthSlider.value = playerMaxHealth;
         gameOverPanel.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
@@ -127,8 +130,8 @@ public class PlayerController : MonoBehaviour
         //    swordTransform.localScale = new Vector3(-1, 1, 1);
         //}
         //move
-        
-        
+
+        Debug.Log(healthSlider.value);
         if (!isAttacking)
         {
             left_right = Input.GetAxis("Horizontal");
@@ -211,6 +214,7 @@ public class PlayerController : MonoBehaviour
         {
 
             currentHealth -= 15;
+            healthSlider.value = currentHealth;
             if (currentHealth <= 0)
             {
                 ShowGameOver(); 
@@ -219,6 +223,7 @@ public class PlayerController : MonoBehaviour
         } else if (collision.gameObject.CompareTag("MonsterY"))
         {
             currentHealth -= 10;
+            healthSlider.value = currentHealth;
             if (currentHealth <= 0)
             {
                 ShowGameOver(); 
