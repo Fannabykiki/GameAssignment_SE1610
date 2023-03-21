@@ -74193,6 +74193,8 @@ MonoBehaviour:
   scoreText: {fileID: 590795191}
   healthSlider: {fileID: 1801903207}
   gameOverPanel: {fileID: 1993059361}
+  blinkTime: 0.1
+  waitTime: 3
   isAttacking: 0
   attackRange: 0
   attackDamage: 0
