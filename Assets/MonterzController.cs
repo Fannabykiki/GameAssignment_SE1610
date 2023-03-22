@@ -69,7 +69,7 @@ public class MonterzController : MonoBehaviour
                 rb.AddForce(direction * 300f); //đẩy quái với lực 300
             }
         }
-        if (collision.gameObject.CompareTag("Tower"))
+        if (collision.gameObject.CompareTag("Tower")) //damage tower
         {
             TowerHealth towerHealth = collision.gameObject.GetComponent<TowerHealth>();
             towerHealth.TakeDamage(damage);
