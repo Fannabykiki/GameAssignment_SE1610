@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     private bool canMove = true;
     private bool canAttack = true;
     //moveW
-
+    public Joystick movementJoystick;
     private float left_right;
     private float up_down;
     private bool isfacingRight = true;
@@ -123,7 +123,30 @@ public class PlayerController : MonoBehaviour
 
 
     }
+    void FixedUpdate()
+    {
+        if (!isAttacking && canMove)
+        {
+            if (movementJoystick.joystickVec.y != 0)
+            {
+                rb.velocity = new Vector2(movementJoystick.joystickVec.x * speed, movementJoystick.joystickVec.y * speed);
+            }
+            else
+            {
+                rb.velocity = Vector2.zero;
+            }
+        }
+        flip();
+        ani.SetFloat("move", Mathf.Abs(movementJoystick.joystickVec.x));
+        
+        AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);
+        if (stateInfo.IsName("Attack") && stateInfo.normalizedTime >= 1f)
+        {
 
+            ani.SetTrigger("Idle");
+        }
+
+    }
     // Update is called once per frame
     void Update()
 
@@ -131,23 +154,23 @@ public class PlayerController : MonoBehaviour
 
 
 
-        if (!isAttacking && canMove)
-        {
-            left_right = Input.GetAxis("Horizontal");
-            up_down = Input.GetAxis("Vertical");
-            rb.velocity = new Vector2(left_right * speed, rb.velocity.y);
-            rb.velocity = new Vector2(rb.velocity.x, up_down * speed);
+        //if (!isAttacking && canMove)
+        //{
+        //    left_right = Input.GetAxis("Horizontal");
+        //    up_down = Input.GetAxis("Vertical");
+        //    rb.velocity = new Vector2(left_right * speed, rb.velocity.y);
+        //    rb.velocity = new Vector2(rb.velocity.x, up_down * speed);
 
-        }
-        //animation
-        flip();
-        ani.SetFloat("move", Mathf.Abs(left_right));
-        AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);
-        if (stateInfo.IsName("Attack") && stateInfo.normalizedTime >= 1f)
-        {
+        //}
+        ////animation
+        //flip();
+        //ani.SetFloat("move", Mathf.Abs(left_right));
+        //AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);
+        //if (stateInfo.IsName("Attack") && stateInfo.normalizedTime >= 1f)
+        //{
 
-            ani.SetTrigger("Idle");
-        }
+        //    ani.SetTrigger("Idle");
+        //}
 
         //attack
         if (Input.GetKeyDown(KeyCode.Space) && canAttack)
@@ -237,7 +260,7 @@ public class PlayerController : MonoBehaviour
     void flip()
     {
 
-        if (isfacingRight && left_right < 0 || !isfacingRight && left_right > 0)
+        if (isfacingRight && movementJoystick.joystickVec.x < 0 || !isfacingRight && movementJoystick.joystickVec.x > 0)
         {
             isfacingRight = !isfacingRight;
 
