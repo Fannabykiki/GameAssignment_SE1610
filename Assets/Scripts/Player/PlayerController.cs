@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     public float damage = 10f;
     public float knockback = 500f;
     //Skill1
+    public float knockbackDuration = 1f;
     public void ShowSkill1()
     {
         if (!isCooldown)
@@ -281,7 +282,24 @@ public class PlayerController : MonoBehaviour,IDataPersistence
             //{
             //    ShowGameOver(); 
             //}
+
         }
+        if (collision.gameObject.CompareTag("Monterx"))  
+        {
+            StartCoroutine(Knockback());
+        }
+    }
+    private IEnumerator Knockback()  //Monterx va chạm nhân vật
+    {
+        // Đóng băng player
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
+        // Chờ 1 giây
+        yield return new WaitForSeconds(knockbackDuration);
+
+        // Mở khóa player
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     private void ShowGameOver()
@@ -341,5 +359,6 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     //void Attack()
     //{
     //    Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
 
 }

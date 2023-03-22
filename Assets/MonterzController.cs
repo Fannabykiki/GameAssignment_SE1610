@@ -24,6 +24,7 @@ public class MonterzController : MonoBehaviour
         }
     }
 
+
     void Start()
     {
         currentHealth = Health;
@@ -67,6 +68,11 @@ public class MonterzController : MonoBehaviour
                 direction = direction.normalized * 5; //đưa hướng về 1
                 rb.AddForce(direction * 300f); //đẩy quái với lực 300
             }
+        }
+        if (collision.gameObject.CompareTag("Tower"))
+        {
+            TowerHealth towerHealth = collision.gameObject.GetComponent<TowerHealth>();
+            towerHealth.TakeDamage(damage);
         }
     }
 
