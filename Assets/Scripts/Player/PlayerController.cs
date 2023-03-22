@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     public Button button;
     public float showDuration = 5f;
     public float cooldownDuration = 20f;
+    public float radius = 5f; // Phạm vi xóa
 
     private bool isCooldown = false;
     //Skill2
@@ -68,12 +69,26 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     public float knockback = 500f;
     //Skill1
     public float knockbackDuration = 1f;
+
+    public void ClearEnemiesInRadius()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius);
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Enemy"))
+            {
+                Destroy(collider.gameObject);
+            }
+        }
+    }
     public void ShowSkill1()
     {
         if (!isCooldown)
         {
             skillPrefab.SetActive(true);
             Invoke("HideSkill", showDuration);
+            ClearEnemiesInRadius();
             isCooldown = true;
             button.interactable = false;
             Invoke("EndCooldown", cooldownDuration);

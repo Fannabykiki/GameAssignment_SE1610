@@ -5,33 +5,34 @@ using UnityEngine.UI;
 
 public class Skill2 : MonoBehaviour
 {
-    public float damage = 10f;
-    public float knockback = 500f;
+    public Button skillButton; // Button to activate skill
+    public GameObject skill;   // Skill to activate
+    public float showDuration = 5f;
+    public float cooldownDuration = 10f;
+    public float radius = 5f; // Phạm vi xóa
+    private bool isCooldown = false;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void Start()
     {
-        if (collision.CompareTag("Enemy"))
+        // Add listener for button click event
+        skill.SetActive(false);
+        skillButton.onClick.AddListener(ActivateSkill);
+    }
+
+    void ActivateSkill()
+    {
+        // Activate skill
+        if (!isCooldown)
         {
-            // Tính toán sát thương
-            MonterxController enemy = collision.GetComponent<MonterxController>();
-            enemy.TakeDamage(damage);
-            MonteryController enemy1 = collision.GetComponent<MonteryController>();
-            enemy1.TakeDamage(damage);
-            MonterzController enemy2 = collision.GetComponent<MonterzController>();
-            enemy2.TakeDamage(damage);
-
-            // Áp dụng knockback
-            Rigidbody2D enemyRb = collision.GetComponent<Rigidbody2D>();
-            Vector2 knockbackDirection = (enemy1.transform.position - transform.position).normalized;
-            enemyRb.AddForce(knockbackDirection * knockback);
-
-            Vector2 knockbackDirection1 = (enemy1.transform.position - transform.position).normalized;
-            enemyRb.AddForce(knockbackDirection1 * knockback);
-
-            Vector2 knockbackDirection2 = (enemy2.transform.position - transform.position).normalized;
-            enemyRb.AddForce(knockbackDirection2 * knockback);
-
-            Destroy(gameObject);
+            skill.SetActive(true);
+            Invoke("HideSkill", showDuration);
+            isCooldown = true;
+            skillButton.interactable = false;
+            Invoke("EndCooldown", cooldownDuration);
         }
+    }
+    private void HideSkill()
+    {
+        skill.SetActive(false);
     }
 }
