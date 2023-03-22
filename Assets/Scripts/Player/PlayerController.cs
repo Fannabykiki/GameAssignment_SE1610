@@ -362,13 +362,13 @@ public class PlayerController : MonoBehaviour,IDataPersistence
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //ICollectible collectible = collision.GetComponent<ICollectible>();
-        //if (collectible != null)
-        //{
-        //    currentHealth += 10;
-        //    currentHealth = Mathf.Clamp(currentHealth, 0, playerMaxHealth);
-        //    collectible.Collect();
-        //}
+        ICollectible collectible = collision.GetComponent<ICollectible>();
+        if (collectible != null)
+        {
+            currentHealth += 10;
+            currentHealth = Mathf.Clamp(currentHealth, 0, playerMaxHealth);
+            collectible.Collect();
+        }
 
         //effects on monsters
         //if (collision.CompareTag("Enemy"))
