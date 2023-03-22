@@ -74605,7 +74605,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c085e8f3fb300c648978fb82a577ccf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swordHitbox: {fileID: 1508993768}
   characterTransform: {fileID: 1160726248}
   swordTransform: {fileID: 1508993769}
   speed: 5
@@ -74649,7 +74648,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.026404005, y: 0.033445373}
+  m_Offset: {x: -0.065295845, y: 0.027494047}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -74660,7 +74659,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23513576, y: 0.30554673}
+  m_Size: {x: 0.18402451, y: 0.29364413}
   m_EdgeRadius: 0
 --- !u!50 &1160726245
 Rigidbody2D:
@@ -75333,7 +75332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efe9f26fd98200f4c8b49d61add7114b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 300
+  maxHealth: 100000
   currentHealth: 300
   healthBarTower: {fileID: 754918240}
   EndGamePanel: {fileID: 1993059361}
@@ -75511,7 +75510,7 @@ GameObject:
   - component: {fileID: 1508993770}
   m_Layer: 0
   m_Name: SwordHitbox
-  m_TagString: Untagged
+  m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75523,7 +75522,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508993768}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -75544,7 +75543,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.19765243, y: 0.033077188}
+  m_Offset: {x: 0.38934568, y: 0.021196634}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -75555,7 +75554,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.36857975, y: 0.25790477}
+  m_Size: {x: 0.7519664, y: 0.305427}
   m_EdgeRadius: 0
 --- !u!114 &1508993771
 MonoBehaviour:
@@ -86692,6 +86691,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1390410586}
+    - target: {fileID: 3070575367932533787, guid: b94a3c36e04b2eb4aa751dc6947b6f1c, type: 3}
+      propertyPath: healthSlider
+      value: 
+      objectReference: {fileID: 1801903207}
     - target: {fileID: 3070575367932533861, guid: b94a3c36e04b2eb4aa751dc6947b6f1c, type: 3}
       propertyPath: m_Name
       value: Monterz
