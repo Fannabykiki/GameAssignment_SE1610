@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] public GameObject PauseMenuPanel;
+    [SerializeField] private AudioSource mainSound;
+
     // Start is called before the first frame update
     public void Pause()
     {
