@@ -9,6 +9,7 @@ TagManager:
   - MonsterZ
   - MonsterY
   - Monterx
+  - BasicAttack
   layers:
   - Default
   - TransparentFX
