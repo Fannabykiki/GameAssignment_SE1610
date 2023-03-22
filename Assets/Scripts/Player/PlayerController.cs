@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
 
     void Start()
     {
+        ScoreScript.scoreValue = 0;
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentHealth = playerMaxHealth;
         healthSlider.maxValue = playerMaxHealth;
@@ -300,10 +301,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
                 canAttack = false;
                 spriteRenderer.enabled = false;
             }
-            //if (currentHealth <= 0)
-            //{
-            //    ShowGameOver(); 
-            //}
+           
 
         }
         else if (collision.gameObject.CompareTag("MonsterY"))
@@ -316,10 +314,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
                 canAttack = false;
                 spriteRenderer.enabled = false;
             }
-            //if (currentHealth <= 0)
-            //{
-            //    ShowGameOver(); 
-            //}
+           
 
         }
         if (collision.gameObject.CompareTag("Monterx"))  
