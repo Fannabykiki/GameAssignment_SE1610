@@ -14,7 +14,7 @@ public class MonterzController : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerController playerController;
     private MonterzController monterzController;
-    public Slider healthSlider;
+   
     //effects from skills
     public void TakeDamage(float damagePlayer)
     {
@@ -30,7 +30,7 @@ public class MonterzController : MonoBehaviour
     {
         currentHealth = Health;
         rb = GetComponent<Rigidbody2D>();
-
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     void FixedUpdate()
