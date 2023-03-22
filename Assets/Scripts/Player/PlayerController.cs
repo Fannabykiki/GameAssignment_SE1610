@@ -403,7 +403,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
         this.currentHealth = gameData.currentHealth;
     }
 
-    public void SaveData(ref GameData gameData)
+    public void SaveData( GameData gameData)
     {
         gameData.currentHealth = this.currentHealth;
     }

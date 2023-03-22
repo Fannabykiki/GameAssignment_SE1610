@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +11,7 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         PauseMenuPanel.SetActive(true);
-        Time.timeScale= 0f;
+        Time.timeScale = 0f;
     }
     public void Resume()
     {
@@ -20,6 +21,15 @@ public class PauseMenu : MonoBehaviour
     public void ReStart()
     {
         Time.timeScale = 1f;
+        string filePath = Path.Combine(Application.persistentDataPath, "gameData");
+        try
+        {
+                File.Delete(filePath);
+        }
+        catch
+        {
+
+        }
         SceneManager.LoadScene("GamePlay");
     }
     public void Save()
