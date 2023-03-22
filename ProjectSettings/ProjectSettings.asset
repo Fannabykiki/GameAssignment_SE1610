@@ -250,8 +250,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: D:/HOCTAPFPT/GitHub/user.keystore
-  AndroidKeyaliasName: test
+  AndroidKeystoreName: C:/Users/Sown_PC/Downloads/user.keystore
+  AndroidKeyaliasName: a
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
