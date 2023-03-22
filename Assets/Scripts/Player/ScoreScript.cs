@@ -14,7 +14,7 @@ public class ScoreScript : MonoBehaviour,IDataPersistence
         scoreValue = gameData.scoreValue;
     }
 
-    public void SaveData(ref GameData gameData)
+    public void SaveData(GameData gameData)
     {
          gameData.scoreValue = scoreValue;
     }
