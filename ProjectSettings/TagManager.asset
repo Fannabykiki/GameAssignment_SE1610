@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Tower
   - Enemy
+  - MonsterZ
+  - MonsterY
   layers:
   - Default
   - TransparentFX
