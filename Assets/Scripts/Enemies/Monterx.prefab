@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8870701028604761565}
   m_Layer: 0
   m_Name: Monterx
-  m_TagString: Untagged
+  m_TagString: Monterx
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,7 +145,7 @@ Animator:
   m_GameObject: {fileID: 8870701028604761559}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 46c1c3477f3874e4cba19a8b25cdb143, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4f71244bdc6c37b43ade42bb2eef45d4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -168,8 +168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 1
-  target: {fileID: 0}
+  target: {fileID: 8870701028604761560}
   Health: 100
   damage: 0
-  knockbackForce: 0
-  knockBackTime: 5

@@ -22,7 +22,7 @@ public class Skill2 : MonoBehaviour
 
             // Áp dụng knockback
             Rigidbody2D enemyRb = collision.GetComponent<Rigidbody2D>();
-            Vector2 knockbackDirection = (enemy.transform.position - transform.position).normalized;
+            Vector2 knockbackDirection = (enemy1.transform.position - transform.position).normalized;
             enemyRb.AddForce(knockbackDirection * knockback);
 
             Vector2 knockbackDirection1 = (enemy1.transform.position - transform.position).normalized;

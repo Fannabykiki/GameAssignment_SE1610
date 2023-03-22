@@ -6,9 +6,10 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour,IDataPersistence
 {
     // Start is called before the first frame update
+    private bool isAlive = true;
     private Rigidbody2D rb;
     private Animator ani;
     public GameObject swordHitbox;
@@ -59,12 +60,13 @@ public class PlayerController : MonoBehaviour
     public Button button2;
     public float showDuration2 = 5f;
     public float cooldownDuration2 = 10f;
-
+    
     private bool isCooldown2 = false;
 
     public float damage = 10f;
     public float knockback = 500f;
     //Skill1
+    public float knockbackDuration = 1f;
     public void ShowSkill1()
     {
         if (!isCooldown)
@@ -303,7 +305,24 @@ public class PlayerController : MonoBehaviour
             //{
             //    ShowGameOver(); 
             //}
+
         }
+        if (collision.gameObject.CompareTag("Monterx"))  
+        {
+            StartCoroutine(Knockback());
+        }
+    }
+    private IEnumerator Knockback()  //Monterx va chạm nhân vật
+    {
+        // Đóng băng player
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
+        // Chờ 1 giây
+        yield return new WaitForSeconds(knockbackDuration);
+
+        // Mở khóa player
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     private void ShowGameOver()
@@ -351,5 +370,18 @@ public class PlayerController : MonoBehaviour
     {
         isAttacking = false;
     }
+    public void LoadData(GameData gameData)
+    {
+        this.currentHealth = gameData.currentHealth;
+    }
+
+    public void SaveData(ref GameData gameData)
+    {
+        gameData.currentHealth = this.currentHealth;
+    }
+    //void Attack()
+    //{
+    //    Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
 
 }
