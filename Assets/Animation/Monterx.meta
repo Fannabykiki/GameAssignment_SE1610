@@ -1,15 +1,8 @@
 fileFormatVersion: 2
-
-HEAD:Assets/Animation/Monterx.meta
 guid: 7a3c93b1b4919594d89a2af2cfed7277
 folderAsset: yes
 DefaultImporter:
-guid: 46c1c3477f3874e4cba19a8b25cdb143
-NativeFormatImporter:
- e4d09729988ae299bd0457938adeda54b1869466:Assets/Animation/Monterx/Monterx Animator Controller.controller.meta
-Fannaby
   externalObjects: {}
-  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

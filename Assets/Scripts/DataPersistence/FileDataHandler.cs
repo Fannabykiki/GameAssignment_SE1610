@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -51,21 +53,6 @@ public class FileDataHandler
         catch
         {
 
-        }
-    }
-    public void Delete()
-    {
-        string fullPath = Path.Combine(dataDirPath, dataFileName);
-        if (File.Exists(fullPath))
-        {
-            try
-            {
-                File.Delete(fullPath);
-            }
-            catch
-            {
-                Debug.LogError("Delete when trying load data" + fullPath);
-            }
         }
     }
 
