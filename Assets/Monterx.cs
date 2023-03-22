@@ -103,8 +103,6 @@ public class Monterx : MonoBehaviour, IDamageable
                 
             }
         }
-
-
     }
 
     public void OnObjectDestroyed()

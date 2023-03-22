@@ -22,9 +22,9 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("GamePlay");
     }
+   
     public void Save()
     {
         DataPersistencemanager.instance.SaveGame();
-        Debug.Log("Game has been saved");
     }
 }
