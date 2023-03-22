@@ -168,8 +168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 1
-  target: {fileID: 0}
+  target: {fileID: 3070575367932533786}
   Health: 200
   damage: 15
-  knockbackForce: 0
-  knockBackTime: 5
