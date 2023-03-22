@@ -12,11 +12,10 @@ public class Skill1 : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             // Tính toán sát thương
-            MonterxController enemy = collision.GetComponent<MonterxController>();
-            enemy.TakeDamage(damage);
-            MonteryController enemy1 = collision.GetComponent<MonteryController>();
+            Monterx enemy = collision.GetComponent<Monterx>();
+            Montery enemy1 = collision.GetComponent<Montery>();
             enemy1.TakeDamage(damage);
-            MonterzController enemy2 = collision.GetComponent<MonterzController>();
+            Monterz enemy2 = collision.GetComponent<Monterz>();
             enemy2.TakeDamage(damage);
 
             // Áp dụng knockback
@@ -28,7 +27,7 @@ public class Skill1 : MonoBehaviour
             enemyRb.AddForce(knockbackDirection1 * knockback);
 
             Vector2 knockbackDirection2 = (enemy2.transform.position - transform.position).normalized;
-            enemyRb.AddForce(knockbackDirection2 * knockback);
+           enemyRb.AddForce(knockbackDirection2 * knockback);
 
             Destroy(gameObject);
         }
