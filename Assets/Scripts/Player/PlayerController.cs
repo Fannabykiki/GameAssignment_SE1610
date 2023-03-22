@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     private bool isAlive = true;
     private Rigidbody2D rb;
     private Animator ani;
-    public GameObject swordHitbox;
+    
     Collider2D swordCollider;
     public Transform characterTransform;
     public Transform swordTransform;
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     private bool canMove = true;
     private bool canAttack = true;
     //moveW
-
+    public Joystick movementJoystick;
     private float left_right;
     private float up_down;
     private bool isfacingRight = true;
@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     public int attackDamage;
     public Transform attackPoint;
     public LayerMask enemyLayers;
+   
     //speedUp
     public float speedBoost = 10f;
     private float speedUpTime;
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     public Button button;
     public float showDuration = 5f;
     public float cooldownDuration = 20f;
+    public float radius = 5f; // Phạm vi xóa
 
     private bool isCooldown = false;
     //Skill2
@@ -66,12 +68,27 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     public float damage = 10f;
     public float knockback = 500f;
     //Skill1
+    public float knockbackDuration = 1f;
+
+    public void ClearEnemiesInRadius()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius);
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Enemy"))
+            {
+                Destroy(collider.gameObject);
+            }
+        }
+    }
     public void ShowSkill1()
     {
         if (!isCooldown)
         {
             skillPrefab.SetActive(true);
             Invoke("HideSkill", showDuration);
+            ClearEnemiesInRadius();
             isCooldown = true;
             button.interactable = false;
             Invoke("EndCooldown", cooldownDuration);
@@ -107,6 +124,8 @@ public class PlayerController : MonoBehaviour,IDataPersistence
 
     void Start()
     {
+        Debug.Log(ScoreScript.scoreValue);
+        ScoreScript.scoreValue = 0;
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentHealth = playerMaxHealth;
         healthSlider.maxValue = playerMaxHealth;
@@ -117,38 +136,69 @@ public class PlayerController : MonoBehaviour,IDataPersistence
 
         skillPrefab.SetActive(false);
         skillPrefab2.SetActive(false);
-        swordCollider = swordHitbox.GetComponent<Collider2D>();
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         //characterTransform = player.transform;
         swordTransform = transform;
 
 
     }
-
-    // Update is called once per frame
-    void Update()
-
+    void FixedUpdate()
     {
-
-
-
         if (!isAttacking && canMove)
         {
-            left_right = Input.GetAxis("Horizontal");
-            up_down = Input.GetAxis("Vertical");
-            rb.velocity = new Vector2(left_right * speed, rb.velocity.y);
-            rb.velocity = new Vector2(rb.velocity.x, up_down * speed);
-
+            if (movementJoystick.joystickVec.y != 0)
+            {
+                rb.velocity = new Vector2(movementJoystick.joystickVec.x * speed, movementJoystick.joystickVec.y * speed);
+            }
+            else
+            {
+                rb.velocity = Vector2.zero;
+            }
         }
-        //animation
         flip();
-        ani.SetFloat("move", Mathf.Abs(left_right));
+        ani.SetFloat("move", Mathf.Abs(movementJoystick.joystickVec.x));
+        
         AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);
         if (stateInfo.IsName("Attack") && stateInfo.normalizedTime >= 1f)
         {
 
             ani.SetTrigger("Idle");
         }
+
+    }
+    // Update is called once per frame
+    public void Attack()
+    {
+        if(canAttack)
+        {
+            ani.SetTrigger("attack");
+            isAttacking = true;
+            rb.velocity = Vector2.zero;
+        }
+    }
+    void Update()
+
+    {
+
+        
+
+        //if (!isAttacking && canMove)
+        //{
+        //    left_right = Input.GetAxis("Horizontal");
+        //    up_down = Input.GetAxis("Vertical");
+        //    rb.velocity = new Vector2(left_right * speed, rb.velocity.y);
+        //    rb.velocity = new Vector2(rb.velocity.x, up_down * speed);
+
+        //}
+        ////animation
+        //flip();
+        //ani.SetFloat("move", Mathf.Abs(left_right));
+        //AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);
+        //if (stateInfo.IsName("Attack") && stateInfo.normalizedTime >= 1f)
+        //{
+
+        //    ani.SetTrigger("Idle");
+        //}
 
         //attack
         if (Input.GetKeyDown(KeyCode.Space) && canAttack)
@@ -158,6 +208,8 @@ public class PlayerController : MonoBehaviour,IDataPersistence
             rb.velocity = Vector2.zero;
 
             //Attack();
+
+
         }
 
 
@@ -238,7 +290,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     void flip()
     {
 
-        if (isfacingRight && left_right < 0 || !isfacingRight && left_right > 0)
+        if (isfacingRight && movementJoystick.joystickVec.x < 0 || !isfacingRight && movementJoystick.joystickVec.x > 0)
         {
             isfacingRight = !isfacingRight;
 
@@ -252,36 +304,53 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     {
         if (collision.gameObject.CompareTag("MonsterZ"))
         {
-
-            currentHealth -= 15;
-            healthSlider.value = currentHealth;
-            if (currentHealth <= 0)
+            if(!isAttacking)
             {
-                canMove = false;
-                canAttack = false;
-                spriteRenderer.enabled = false;
+                Debug.Log(currentHealth);
+                currentHealth -= 15;
+                healthSlider.value = currentHealth;
+                if (currentHealth <= 0)
+                {
+                    canMove = false;
+                    canAttack = false;
+                    spriteRenderer.enabled = false;
+                }
             }
-            //if (currentHealth <= 0)
-            //{
-            //    ShowGameOver(); 
-            //}
+            
+           
 
         }
         else if (collision.gameObject.CompareTag("MonsterY"))
         {
-            currentHealth -= 10;
-            healthSlider.value = currentHealth;
-            if (currentHealth <= 0)
+            if (!isAttacking)
             {
-                canMove = false;
-                canAttack = false;
-                spriteRenderer.enabled = false;
+                currentHealth -= 10;
+                healthSlider.value = currentHealth;
+                if (currentHealth <= 0)
+                {
+                    canMove = false;
+                    canAttack = false;
+                    spriteRenderer.enabled = false;
+                }
             }
-            //if (currentHealth <= 0)
-            //{
-            //    ShowGameOver(); 
-            //}
+
         }
+        if (collision.gameObject.CompareTag("Monterx"))  
+        {
+            StartCoroutine(Knockback());
+        }
+    }
+    private IEnumerator Knockback()  //Monterx va chạm nhân vật
+    {
+        // Đóng băng player
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
+        // Chờ 1 giây
+        yield return new WaitForSeconds(knockbackDuration);
+
+        // Mở khóa player
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     private void ShowGameOver()
@@ -293,13 +362,13 @@ public class PlayerController : MonoBehaviour,IDataPersistence
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ICollectible collectible = collision.GetComponent<ICollectible>();
-        if (collectible != null)
-        {
-            currentHealth += 10;
-            currentHealth = Mathf.Clamp(currentHealth, 0, playerMaxHealth);
-            collectible.Collect();
-        }
+        //ICollectible collectible = collision.GetComponent<ICollectible>();
+        //if (collectible != null)
+        //{
+        //    currentHealth += 10;
+        //    currentHealth = Mathf.Clamp(currentHealth, 0, playerMaxHealth);
+        //    collectible.Collect();
+        //}
 
         //effects on monsters
         //if (collision.CompareTag("Enemy"))
@@ -341,5 +410,6 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     //void Attack()
     //{
     //    Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
 
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MonterzController : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class MonterzController : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerController playerController;
     private MonterzController monterzController;
-
+   
     //effects from skills
     public void TakeDamage(float damagePlayer)
     {
@@ -24,11 +25,12 @@ public class MonterzController : MonoBehaviour
         }
     }
 
+
     void Start()
     {
         currentHealth = Health;
         rb = GetComponent<Rigidbody2D>();
-
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     void FixedUpdate()
@@ -46,6 +48,7 @@ public class MonterzController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+       
         if (monterzController != null)
         {
             damage = (int)monterzController.damage;
@@ -61,6 +64,7 @@ public class MonterzController : MonoBehaviour
 
         {
             Rigidbody2D rb = transform.GetComponent<Rigidbody2D>();
+
             if (rb != null)
             {
                 Vector2 direction = -(collision.transform.position - transform.position); //tính hướng đẩy
@@ -68,21 +72,26 @@ public class MonterzController : MonoBehaviour
                 rb.AddForce(direction * 300f); //đẩy quái với lực 300
             }
         }
+        if (collision.gameObject.CompareTag("Tower")) //damage tower
+        {
+            TowerHealth towerHealth = collision.gameObject.GetComponent<TowerHealth>();
+            towerHealth.TakeDamage(damage);
+        }
     }
 
   
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
-        {
-            PlayerController player = other.gameObject.GetComponent<PlayerController>();
-            if (player != null)
-            {
-                _ = player.attackDamage; // Trừ máu của nhân vật
-                Destroy(gameObject); // Biến mất khỏi màn hình
-            }
-        }
-    }
+    //void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
+    //    {
+    //        PlayerController player = other.gameObject.GetComponent<PlayerController>();
+    //        if (player != null)
+    //        {
+    //            _ = player.attackDamage; // Trừ máu của nhân vật
+    //            Destroy(gameObject); // Biến mất khỏi màn hình
+    //        }
+    //    }
+    //}
 
     public void Die()
     {

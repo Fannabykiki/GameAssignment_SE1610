@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - MonsterZ
   - MonsterY
+  - Monterx
+  - Sword
   layers:
   - Default
   - TransparentFX
