@@ -88,8 +88,9 @@ public class MonteryController : MonoBehaviour
 
     public void Die()
     {
-        GetComponent<LootBag>().InstantiatateLoot(transform.position);
+        //GetComponent<LootBag>().InstantiatateLoot(transform.position);
         // Khi quái vật chết, xóa nó khỏi scene
+        ScoreScript.scoreValue += 30;
         Destroy(gameObject);
     }
     void OnHit(int damage)
