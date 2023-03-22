@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     private bool isAlive = true;
     private Rigidbody2D rb;
     private Animator ani;
-    public GameObject swordHitbox;
+    
     Collider2D swordCollider;
     public Transform characterTransform;
     public Transform swordTransform;
@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     public int attackDamage;
     public Transform attackPoint;
     public LayerMask enemyLayers;
+   
     //speedUp
     public float speedBoost = 10f;
     private float speedUpTime;
@@ -123,6 +124,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
 
     void Start()
     {
+        Debug.Log(ScoreScript.scoreValue);
         ScoreScript.scoreValue = 0;
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentHealth = playerMaxHealth;
@@ -134,7 +136,6 @@ public class PlayerController : MonoBehaviour,IDataPersistence
 
         skillPrefab.SetActive(false);
         skillPrefab2.SetActive(false);
-        swordCollider = swordHitbox.GetComponent<Collider2D>();
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         //characterTransform = player.transform;
         swordTransform = transform;
@@ -166,11 +167,20 @@ public class PlayerController : MonoBehaviour,IDataPersistence
 
     }
     // Update is called once per frame
+    public void Attack()
+    {
+        if(canAttack)
+        {
+            ani.SetTrigger("attack");
+            isAttacking = true;
+            rb.velocity = Vector2.zero;
+        }
+    }
     void Update()
 
     {
 
-
+        
 
         //if (!isAttacking && canMove)
         //{
@@ -198,6 +208,8 @@ public class PlayerController : MonoBehaviour,IDataPersistence
             rb.velocity = Vector2.zero;
 
             //Attack();
+
+
         }
 
 
@@ -292,29 +304,35 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     {
         if (collision.gameObject.CompareTag("MonsterZ"))
         {
-
-            currentHealth -= 15;
-            healthSlider.value = currentHealth;
-            if (currentHealth <= 0)
+            if(!isAttacking)
             {
-                canMove = false;
-                canAttack = false;
-                spriteRenderer.enabled = false;
+                Debug.Log(currentHealth);
+                currentHealth -= 15;
+                healthSlider.value = currentHealth;
+                if (currentHealth <= 0)
+                {
+                    canMove = false;
+                    canAttack = false;
+                    spriteRenderer.enabled = false;
+                }
             }
+            
            
 
         }
         else if (collision.gameObject.CompareTag("MonsterY"))
         {
-            currentHealth -= 10;
-            healthSlider.value = currentHealth;
-            if (currentHealth <= 0)
+            if (!isAttacking)
             {
-                canMove = false;
-                canAttack = false;
-                spriteRenderer.enabled = false;
+                currentHealth -= 10;
+                healthSlider.value = currentHealth;
+                if (currentHealth <= 0)
+                {
+                    canMove = false;
+                    canAttack = false;
+                    spriteRenderer.enabled = false;
+                }
             }
-           
 
         }
         if (collision.gameObject.CompareTag("Monterx"))  
@@ -344,13 +362,13 @@ public class PlayerController : MonoBehaviour,IDataPersistence
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ICollectible collectible = collision.GetComponent<ICollectible>();
-        if (collectible != null)
-        {
-            currentHealth += 10;
-            currentHealth = Mathf.Clamp(currentHealth, 0, playerMaxHealth);
-            collectible.Collect();
-        }
+        //ICollectible collectible = collision.GetComponent<ICollectible>();
+        //if (collectible != null)
+        //{
+        //    currentHealth += 10;
+        //    currentHealth = Mathf.Clamp(currentHealth, 0, playerMaxHealth);
+        //    collectible.Collect();
+        //}
 
         //effects on monsters
         //if (collision.CompareTag("Enemy"))
@@ -385,7 +403,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
         this.currentHealth = gameData.currentHealth;
     }
 
-    public void SaveData(ref GameData gameData)
+    public void SaveData(GameData gameData)
     {
         gameData.currentHealth = this.currentHealth;
     }

@@ -23,11 +23,9 @@ public class TowerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        if (currentHealth < 0)
+        if (currentHealth <= 0)
         {
-            currentHealth = 0;
-            // End game and save data to json
-            // 
+            
             
             Time.timeScale = 0f;
             EndGamePanel.SetActive(true);

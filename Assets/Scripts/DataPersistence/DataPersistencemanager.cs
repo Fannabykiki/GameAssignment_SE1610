@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataPersistencemanager : MonoBehaviour
 {
@@ -19,12 +20,12 @@ public class DataPersistencemanager : MonoBehaviour
         {
             Debug.LogError("Found more thand one Data Manager in the scene");
         }
-        instance = this;
+       
     }
     public void Start()
-
     {
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        instance = this;
         this.dataPersistenceList = FindAllDataPersistenceList();
         LoadGame();
     }
@@ -40,30 +41,29 @@ public class DataPersistencemanager : MonoBehaviour
     {
         this.gameData = new GameData();
     }
+
     public void LoadGame()
     {
         this.gameData = dataHandler.Load();
         if (this.gameData == null)
         {
-            Debug.Log("No data was found. Start new game");
+            Debug.Log("No data to load");
             NewGame();
         }
         foreach (IDataPersistence dataPersistence in dataPersistenceList)
         {
             dataPersistence.LoadData(gameData);
         }
+       
     }
     public void SaveGame()
     {
         foreach (IDataPersistence dataPersistence in dataPersistenceList)
         {
-            dataPersistence.SaveData(ref gameData);
+            dataPersistence.SaveData(gameData);
         }
        
         dataHandler.Save(gameData);
-    }
-    private void OnApplicationQuit()
-    {
-        SaveGame();
+        Debug.Log("Save game successfully");
     }
 }

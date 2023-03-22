@@ -19,6 +19,7 @@ public class GameData
         this.currentwave= 0;
         this.scoreValue= 0;
         this.currentEnemies= 3;
+        this.enemiesPerWave = 3;
     }
 
 }

@@ -14,7 +14,7 @@ public class ScoreScript : MonoBehaviour,IDataPersistence
         scoreValue = gameData.scoreValue;
     }
 
-    public void SaveData(ref GameData gameData)
+    public void SaveData(GameData gameData)
     {
          gameData.scoreValue = scoreValue;
     }
@@ -22,7 +22,9 @@ public class ScoreScript : MonoBehaviour,IDataPersistence
     // Start is called before the first frame update
     void Start()
     {
+        
         score = GetComponent<Text>();
+        scoreValue = 0;
     }
 
     // Update is called once per frame

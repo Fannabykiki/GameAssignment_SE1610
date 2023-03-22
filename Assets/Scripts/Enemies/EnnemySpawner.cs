@@ -21,7 +21,7 @@ public class EnnemySpawner : MonoBehaviour,IDataPersistence
     void Start()
     {
         currentEnemies = enemiesPerWave; //3
-        //StartCoroutine(SpawnWaves());
+        StartCoroutine(SpawnWaves());
     }
     IEnumerator SpawnWaves()
     {
@@ -93,7 +93,7 @@ public class EnnemySpawner : MonoBehaviour,IDataPersistence
         this.currentEnemies = gameData.currentEnemies;
     }
 
-    public void SaveData(ref GameData gameData)
+    public void SaveData(GameData gameData)
     {
         gameData.currentwave = this.currentWave;
         gameData.enemiesPerWave = this.enemiesPerWave;
