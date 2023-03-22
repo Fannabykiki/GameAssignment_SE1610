@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MonterzController : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class MonterzController : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerController playerController;
     private MonterzController monterzController;
-
+    public Slider healthSlider;
     //effects from skills
     public void TakeDamage(float damagePlayer)
     {
@@ -47,6 +48,7 @@ public class MonterzController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+       
         if (monterzController != null)
         {
             damage = (int)monterzController.damage;
@@ -62,6 +64,7 @@ public class MonterzController : MonoBehaviour
 
         {
             Rigidbody2D rb = transform.GetComponent<Rigidbody2D>();
+
             if (rb != null)
             {
                 Vector2 direction = -(collision.transform.position - transform.position); //tính hướng đẩy
