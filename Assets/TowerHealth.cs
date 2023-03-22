@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TowerHealth : MonoBehaviour
 {
-    public int maxHealth = 100;
+    public int maxHealth = 300;
     public int currentHealth;
     public HealthBarTower healthBarTower;
    
@@ -44,4 +44,5 @@ public class TowerHealth : MonoBehaviour
         }
         healthBarTower.SetHealth(currentHealth);
     }
+   
 }
