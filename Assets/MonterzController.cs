@@ -77,18 +77,18 @@ public class MonterzController : MonoBehaviour
     }
 
   
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
-        {
-            PlayerController player = other.gameObject.GetComponent<PlayerController>();
-            if (player != null)
-            {
-                _ = player.attackDamage; // Trừ máu của nhân vật
-                Destroy(gameObject); // Biến mất khỏi màn hình
-            }
-        }
-    }
+    //void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
+    //    {
+    //        PlayerController player = other.gameObject.GetComponent<PlayerController>();
+    //        if (player != null)
+    //        {
+    //            _ = player.attackDamage; // Trừ máu của nhân vật
+    //            Destroy(gameObject); // Biến mất khỏi màn hình
+    //        }
+    //    }
+    //}
 
     public void Die()
     {
