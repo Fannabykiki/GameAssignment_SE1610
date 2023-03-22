@@ -167,6 +167,15 @@ public class PlayerController : MonoBehaviour,IDataPersistence
 
     }
     // Update is called once per frame
+    public void Attack()
+    {
+        if(canAttack)
+        {
+            ani.SetTrigger("attack");
+            isAttacking = true;
+            rb.velocity = Vector2.zero;
+        }
+    }
     void Update()
 
     {
