@@ -24,6 +24,7 @@ public class MonterzController : MonoBehaviour
         }
     }
 
+
     void Start()
     {
         currentHealth = Health;
@@ -68,21 +69,26 @@ public class MonterzController : MonoBehaviour
                 rb.AddForce(direction * 300f); //đẩy quái với lực 300
             }
         }
+        if (collision.gameObject.CompareTag("Tower")) //damage tower
+        {
+            TowerHealth towerHealth = collision.gameObject.GetComponent<TowerHealth>();
+            towerHealth.TakeDamage(damage);
+        }
     }
 
   
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
-        {
-            PlayerController player = other.gameObject.GetComponent<PlayerController>();
-            if (player != null)
-            {
-                _ = player.attackDamage; // Trừ máu của nhân vật
-                Destroy(gameObject); // Biến mất khỏi màn hình
-            }
-        }
-    }
+    //void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật
+    //    {
+    //        PlayerController player = other.gameObject.GetComponent<PlayerController>();
+    //        if (player != null)
+    //        {
+    //            _ = player.attackDamage; // Trừ máu của nhân vật
+    //            Destroy(gameObject); // Biến mất khỏi màn hình
+    //        }
+    //    }
+    //}
 
     public void Die()
     {

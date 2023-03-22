@@ -31,14 +31,13 @@ public class MonterxController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
 
-        // Di chuyển quái vật về trụ thành
         if (target != null)
         {
             Vector2 direction = (target.position - transform.position).normalized;
-            rb.velocity = direction * Speed;
+            GetComponent<Rigidbody2D>().velocity = direction * Speed;
         }
         if (currentHealth <= 0)
         {
