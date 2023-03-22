@@ -39,10 +39,10 @@ TextureImporter:
     wrapU: 0
     wrapV: 0
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,18 +115,458 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: GolemAttack_strip_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 15
+        width: 38
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 214dbb6380b03234fa899e9ba53800f7
+      internalID: 1089224459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_1
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 16
+        width: 36
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e675b96009eeebf45982adbaf96f090f
+      internalID: -2000141056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_2
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 18
+        width: 38
+        height: 41
+      alignment: 9
+      pivot: {x: 0.50000024, y: 0.48871422}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f09587dbe0ca7d64d8eb8ec0ed7d9417
+      internalID: 100282698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_3
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 15
+        width: 39
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80177fce532b62a4ebc5de360ee2fa05
+      internalID: -1182800197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_4
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 17
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f986c7c25b468247aab66e03269a107
+      internalID: 1028164070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_5
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 18
+        width: 42
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40695f884026e68408829cf7281e2f23
+      internalID: -502741582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_6
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 17
+        width: 42
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a31cfcd846bba914da5f7d318e9a1f44
+      internalID: 891091711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_7
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 18
+        width: 42
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a78ddc0eaffcf8a4aa5a720d769f7606
+      internalID: 1215515645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_8
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 16
+        width: 44
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81e46f4f4f8b6c84a9dbda820b1c0040
+      internalID: -1081796418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_9
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 15
+        width: 44
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71b8ab69422509644966346d82fe4cad
+      internalID: -1056748861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_10
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 15
+        width: 55
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4aceb8a2901142141ae09f193172af3b
+      internalID: -383479893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_11
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 18
+        width: 42
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d210f498a1113474d87eb98d7e7c71e9
+      internalID: -2129096043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_12
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 15
+        width: 50
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8049e899bcbfa0e47ba299821b4815d5
+      internalID: 2142010881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_13
+      rect:
+        serializedVersion: 2
+        x: 1049
+        y: 16
+        width: 50
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: caa4fc72ba5590e4291b8c51cf976a9a
+      internalID: 956212377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_14
+      rect:
+        serializedVersion: 2
+        x: 1137
+        y: 17
+        width: 37
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 913ac396b9a2f704e91cdecc1799b52e
+      internalID: -1855813623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_15
+      rect:
+        serializedVersion: 2
+        x: 1215
+        y: 18
+        width: 37
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a89bf14251dc4964b98448a70263558d
+      internalID: 688204112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_16
+      rect:
+        serializedVersion: 2
+        x: 1279
+        y: 0
+        width: 1
+        height: 1
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ee87a9e58dd71f429d0207c5705951a
+      internalID: -172661039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_17
+      rect:
+        serializedVersion: 2
+        x: 1279
+        y: 0
+        width: 1
+        height: 1
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 135ae136c057d7b48862029129fec8fc
+      internalID: -906227293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_18
+      rect:
+        serializedVersion: 2
+        x: 1279
+        y: 0
+        width: 1
+        height: 1
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1207298f83eeb4c459d353403fe19eec
+      internalID: -78777145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GolemAttack_strip_19
+      rect:
+        serializedVersion: 2
+        x: 1279
+        y: 0
+        width: 1
+        height: 1
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db642a9384a9a3148bc5de6c1accbf7e
+      internalID: -683220032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      GolemAttack_strip_0: 1089224459
+      GolemAttack_strip_1: -2000141056
+      GolemAttack_strip_10: -383479893
+      GolemAttack_strip_11: -2129096043
+      GolemAttack_strip_12: 2142010881
+      GolemAttack_strip_13: 956212377
+      GolemAttack_strip_14: -1855813623
+      GolemAttack_strip_15: 688204112
+      GolemAttack_strip_16: -172661039
+      GolemAttack_strip_17: -906227293
+      GolemAttack_strip_18: -78777145
+      GolemAttack_strip_19: -683220032
+      GolemAttack_strip_2: 100282698
+      GolemAttack_strip_3: -1182800197
+      GolemAttack_strip_4: 1028164070
+      GolemAttack_strip_5: -502741582
+      GolemAttack_strip_6: 891091711
+      GolemAttack_strip_7: 1215515645
+      GolemAttack_strip_8: -1081796418
+      GolemAttack_strip_9: -1056748861
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
