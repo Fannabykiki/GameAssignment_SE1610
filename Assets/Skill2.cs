@@ -13,16 +13,16 @@ public class Skill2 : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             // Tính toán sát thương
-            MonterxController enemy = collision.GetComponent<MonterxController>();
+            Monterx enemy = collision.GetComponent<Monterx>();
             enemy.TakeDamage(damage);
-            MonteryController enemy1 = collision.GetComponent<MonteryController>();
+            Montery enemy1 = collision.GetComponent<Montery>();
             enemy1.TakeDamage(damage);
-            MonterzController enemy2 = collision.GetComponent<MonterzController>();
+            Monterz enemy2 = collision.GetComponent<Monterz>();
             enemy2.TakeDamage(damage);
 
             // Áp dụng knockback
             Rigidbody2D enemyRb = collision.GetComponent<Rigidbody2D>();
-            Vector2 knockbackDirection = (enemy.transform.position - transform.position).normalized;
+            Vector2 knockbackDirection = (enemy1.transform.position - transform.position).normalized;
             enemyRb.AddForce(knockbackDirection * knockback);
 
             Vector2 knockbackDirection1 = (enemy1.transform.position - transform.position).normalized;
