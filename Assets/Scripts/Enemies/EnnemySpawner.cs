@@ -5,12 +5,12 @@ using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
-public class EnnemySpawner : MonoBehaviour
+public class EnnemySpawner : MonoBehaviour,IDataPersistence
 {
 
     public List<GameObject> enemyPrefabs;
     public float spawnDelay = 1f;
-    public int waves = 10;
+    public int waves = 20;
     public int enemiesPerWave = 3;
     public float waveDelay = 5f;
     public float decreaseTime = 10;
@@ -85,5 +85,18 @@ public class EnnemySpawner : MonoBehaviour
         GameObject enemy = Instantiate(enemyPrefab, position, Quaternion.identity);
         enemy.transform.SetParent(transform);
     }
-    
+
+    public void LoadData(GameData gameData)
+    {
+        this.currentWave = gameData.currentwave;
+        this.enemiesPerWave = gameData.enemiesPerWave;
+        this.currentEnemies = gameData.currentEnemies;
+    }
+
+    public void SaveData(ref GameData gameData)
+    {
+        gameData.currentwave = this.currentWave;
+        gameData.enemiesPerWave = this.enemiesPerWave;
+        gameData.currentEnemies = this.currentEnemies;
+    }
 }

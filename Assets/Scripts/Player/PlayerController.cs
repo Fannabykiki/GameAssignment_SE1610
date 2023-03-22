@@ -6,9 +6,10 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour,IDataPersistence
 {
     // Start is called before the first frame update
+    private bool isAlive = true;
     private Rigidbody2D rb;
     private Animator ani;
     public GameObject swordHitbox;
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour
     public Button button2;
     public float showDuration2 = 5f;
     public float cooldownDuration2 = 10f;
-
+    
     private bool isCooldown2 = false;
 
     public float damage = 10f;
@@ -328,5 +329,17 @@ public class PlayerController : MonoBehaviour
     {
         isAttacking = false;
     }
+    public void LoadData(GameData gameData)
+    {
+        this.currentHealth = gameData.currentHealth;
+    }
+
+    public void SaveData(ref GameData gameData)
+    {
+        gameData.currentHealth = this.currentHealth;
+    }
+    //void Attack()
+    //{
+    //    Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
 }
