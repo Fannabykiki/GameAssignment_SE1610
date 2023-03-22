@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerHealth : MonoBehaviour
+public class TowerHealth : MonoBehaviour,IDataPersistence
 {
     public int maxHealth = 300;
     public int currentHealth;
@@ -42,5 +42,14 @@ public class TowerHealth : MonoBehaviour
         }
         healthBarTower.SetHealth(currentHealth);
     }
-   
+
+    public void LoadData(GameData gameData)
+    {
+        this.currentHealth = gameData.towerHealth;
+    }
+
+    public void SaveData(GameData gameData)
+    {
+        gameData.towerHealth = this.currentHealth;
+    }
 }
