@@ -74,8 +74,6 @@ public class MonterxController : MonoBehaviour
 
     }
 
-
-   
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player")) // Nếu va chạm với nhân vật

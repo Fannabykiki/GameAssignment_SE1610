@@ -19,9 +19,6 @@ public class Monterx : MonoBehaviour, IDamageable
             }
             _health = value;
 
-
-
-
             if (_health <= 0)
             {
                 animator.SetBool("isAlive", false);
@@ -65,7 +62,6 @@ public class Monterx : MonoBehaviour, IDamageable
             Destroy(gameObject);
         }
     }
-
     public void OnHit(float damage, Vector2 knockback)
     {
         Health -= damage;

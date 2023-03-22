@@ -22,27 +22,7 @@ public class DataPersistencemanager : MonoBehaviour
         }
        
     }
-    //private void OnEnable()
-    //{
-    //    SceneManager.sceneLoaded += OnSceneLoaded;
-    //    SceneManager.sceneUnloaded += OnSceneUnLoaded;
-    //}
-    //private void OnDisable()
-    //{
-    //    SceneManager.sceneLoaded -= OnSceneLoaded;
-    //    SceneManager.sceneUnloaded -= OnSceneUnLoaded;
-    //}
-    //public void OnSceneLoaded(Scene scene,LoadSceneMode mode)
-    //{
-    //    this.dataPersistenceList = FindAllDataPersistenceList();
-    //    LoadGame();
-    //}
-    //public void OnSceneUnLoaded(Scene scene)
-    //{
-
-    //}
     public void Start()
-
     {
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         instance = this;
@@ -61,6 +41,7 @@ public class DataPersistencemanager : MonoBehaviour
     {
         this.gameData = new GameData();
     }
+
     public void LoadGame()
     {
         this.gameData = dataHandler.Load();
@@ -73,6 +54,7 @@ public class DataPersistencemanager : MonoBehaviour
         {
             dataPersistence.LoadData(gameData);
         }
+       
     }
     public void SaveGame()
     {

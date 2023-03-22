@@ -74844,7 +74844,7 @@ GameObject:
   - component: {fileID: 1160726249}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75087,9 +75087,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 4254614567645243782, guid: cf21db241d7926f49b7d4b6698679a47, type: 3}
-  - {fileID: 8835417816399470575, guid: 016176c4f7f0c11459f950abb37ad6dd, type: 3}
-  - {fileID: 4461083829508969057, guid: 1efe08b3c7e80ba419ae005dc39d65ac, type: 3}
+  - {fileID: 8870701028604761559, guid: b6e9957b08183234988d1777fd0fb995, type: 3}
+  - {fileID: 1856182906440108528, guid: a70b7ceb3db20614f9ae41854bf23111, type: 3}
+  - {fileID: 3070575367932533861, guid: b94a3c36e04b2eb4aa751dc6947b6f1c, type: 3}
   spawnDelay: 1
   waves: 10
   enemiesPerWave: 3
