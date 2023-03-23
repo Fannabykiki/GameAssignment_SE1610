@@ -23,7 +23,13 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     public TextMeshProUGUI scoreText;
     public Slider healthSlider;
     public GameObject gameOverPanel;
-   
+
+    [SerializeField] private AudioSource hitSound;
+    [SerializeField] private AudioSource dieSound;
+    [SerializeField] private AudioSource healthSound;
+    [SerializeField] private AudioSource enemiesSound;
+
+
     //die
     private SpriteRenderer spriteRenderer;
     public float blinkTime = 0.1f;
@@ -203,12 +209,12 @@ public class PlayerController : MonoBehaviour,IDataPersistence
         //attack
         if (Input.GetKeyDown(KeyCode.Space) && canAttack)
         {
+            hitSound.Play();
             ani.SetTrigger("attack");
             isAttacking = true;
             rb.velocity = Vector2.zero;
 
             //Attack();
-
 
         }
 
@@ -248,8 +254,8 @@ public class PlayerController : MonoBehaviour,IDataPersistence
         //die
         if (currentHealth <= 0)
         {
+            dieSound.Play();
             elapsedTime += Time.deltaTime; // Tính thời gian đã trôi qua
-
 
             if (elapsedTime >= waitTime)
             {
@@ -273,8 +279,6 @@ public class PlayerController : MonoBehaviour,IDataPersistence
                 GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
                 GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
                 StartCoroutine(Blink());
-
-
             }
 
         }
@@ -303,7 +307,8 @@ public class PlayerController : MonoBehaviour,IDataPersistence
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("MonsterZ"))
-        {
+        {   
+            enemiesSound.Play();
             if(!isAttacking)
             {
                 Debug.Log(currentHealth);
@@ -322,6 +327,8 @@ public class PlayerController : MonoBehaviour,IDataPersistence
         }
         else if (collision.gameObject.CompareTag("MonsterY"))
         {
+            enemiesSound.Play();
+
             if (!isAttacking)
             {
                 currentHealth -= 10;
@@ -337,6 +344,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
         }
         if (collision.gameObject.CompareTag("Monterx"))  
         {
+            enemiesSound.Play();
             StartCoroutine(Knockback());
         }
     }
@@ -362,13 +370,14 @@ public class PlayerController : MonoBehaviour,IDataPersistence
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //ICollectible collectible = collision.GetComponent<ICollectible>();
-        //if (collectible != null)
-        //{
-        //    currentHealth += 10;
-        //    currentHealth = Mathf.Clamp(currentHealth, 0, playerMaxHealth);
-        //    collectible.Collect();
-        //}
+        ICollectible collectible = collision.GetComponent<ICollectible>();
+        if (collectible != null)
+        {
+            healthSound.Play();
+            currentHealth += 10;
+            currentHealth = Mathf.Clamp(currentHealth, 0, playerMaxHealth);
+            collectible.Collect();
+        }
 
         //effects on monsters
         //if (collision.CompareTag("Enemy"))
@@ -403,7 +412,7 @@ public class PlayerController : MonoBehaviour,IDataPersistence
         this.currentHealth = gameData.currentHealth;
     }
 
-    public void SaveData(ref GameData gameData)
+    public void SaveData( GameData gameData)
     {
         gameData.currentHealth = this.currentHealth;
     }
